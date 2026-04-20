@@ -1,0 +1,1 @@
+# qa_guru_yandex_example_python_git
