@@ -1,0 +1,9 @@
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:54 ==================================================
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:55 CONFIGURATION:
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:56   Browser: chrome
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:57   Browser Version: 128.0
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:58   Headless: False
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:59   Window Size: 1920x1080
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:60   Selenoid URL: None
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:61   Site URL: None
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:62 ==================================================

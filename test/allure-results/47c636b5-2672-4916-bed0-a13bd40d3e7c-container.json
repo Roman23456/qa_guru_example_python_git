@@ -1,0 +1,1 @@
+{"uuid": "02dafef9-9186-4e5a-9a6e-9dd3b8da47e1", "children": ["f84525ad-a126-4635-b454-7f581a93ba26"], "befores": [{"name": "cart_with_product", "status": "passed", "steps": [{"name": "Click to cart button", "status": "passed", "start": 1777107334890, "stop": 1777107336990}], "start": 1777107334890, "stop": 1777107336990}], "start": 1777107334890, "stop": 1777107354356}

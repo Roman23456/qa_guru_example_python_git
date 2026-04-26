@@ -1,0 +1,11 @@
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:95 ==================================================
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:96 CONFIGURATION:
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:97   Browser: chrome
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:98   Browser Version: 128.0
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:99   Headless: False
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:100   Window Size: 1920x1080
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:101   Selenoid URL: None
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:102   Site URL: https://storum.ru/
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:103 ==================================================
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:56 Выполняем авторизацию...
+INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:63 Авторизация выполнена
