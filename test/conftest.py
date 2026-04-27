@@ -1,9 +1,11 @@
 import pytest
 import logging
 import os
+import requests as http_requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from dotenv import load_dotenv
+from utils.attach import add_screenshot, add_page_source, add_console_logs, add_video
 
 from pages.authorization_page import AuthorizationPage
 from pages.cart_page import CartPage
@@ -20,9 +22,10 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-import requests as http_requests
 
-from utils.attach import add_screenshot, add_page_source, add_console_logs, add_video
+# import requests as http_requests
+
+# from utils.attach import add_screenshot, add_page_source, add_console_logs, add_video
 
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
@@ -36,10 +39,10 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
     error = len(terminalreporter.stats.get("error", []))
     total = passed + failed + error
 
-    status = "✅ Все тесты прошли" if exitstatus == 0 else "❌ Есть падения"
+    status = " Все тесты прошли" if exitstatus == 0 else " Есть падения"
     text = (
         f"{status}\n"
-        f"Всего: {total} | ✅ {passed} | ❌ {failed} | ⚠️ {error}"
+        f"Всего: {total} |  {passed} |  {failed} |  {error}"
     )
 
     try:
@@ -87,8 +90,6 @@ def authorized_driver(setup_browser, request):
 
     base_url = os.getenv("SITE_URL") or "https://storum.ru"
     auth_page = AuthorizationPage(setup_browser, base_url)
-
-    # Авторизация
     logger.info("Выполняем авторизацию...")
     auth_page.open()
     auth_page.open_account_menu()
@@ -118,20 +119,6 @@ def perform_search(authorized_driver):
     return authorized_driver
 
 
-# @pytest.fixture(scope="function")
-# def cart_with_product(perform_search, request):
-#     """
-#     Фикстура, которая добавляет товар в корзину.
-#     Возвращает драйвер с уже добавленным товаром в корзине.
-#     """
-#     base_url = os.getenv("SITE_URL") or "https://storum.ru"
-#     cart_page = CartPage(perform_search, base_url)
-#
-#     # Добавляем товар в корзину
-#     cart_page.add_to_cart()
-#
-#     return perform_search
-
 @pytest.fixture(scope="function")
 def cart_with_product(perform_search, request):
     """
@@ -142,12 +129,9 @@ def cart_with_product(perform_search, request):
     base_url = os.getenv("SITE_URL") or "https://storum.ru"
     cart_page = CartPage(perform_search, base_url)
 
-    # Товар 1: Кофе NESCAFE GOLD Арома 120гр — 832.50 р.
     cart_page.add_to_cart(product_id="1011525")
 
-    # Товар 2: Тот же кофе, но 500г — 2656.00 р. (или любой другой)
-    # Можно использовать тот же ID — тогда будет 2 шт одного товара → 1665 р.
-    cart_page.add_to_cart(product_id="1011525")  # Или замените на "1011950"
+    cart_page.add_to_cart(product_id="1011525")
 
     return perform_search
 
@@ -161,7 +145,6 @@ def setup_browser(request):
     window_height = request.config.getoption("--window-height")
     selenoid_url = request.config.getoption("--selenoid-url")
 
-    # Логирование полученных параметров
     logger.info("=" * 50)
     logger.info("CONFIGURATION:")
     logger.info(f"  Browser: {browser}")
@@ -182,9 +165,7 @@ def setup_browser(request):
     if headless:
         options.add_argument('--headless')
 
-    # Логика выбора: удаленный браузер или локальный
     if selenoid_url:
-        # Если указан URL селенойда, используем Remote
         selenoid_capabilities = {
             "browserName": browser,
             "browserVersion": browser_version,
@@ -199,7 +180,6 @@ def setup_browser(request):
             options=options
         )
     else:
-        # Если URL не указан, запускаем локальный Chrome
         driver = webdriver.Chrome(options=options)
 
     yield driver

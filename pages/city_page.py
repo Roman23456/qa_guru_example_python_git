@@ -11,13 +11,15 @@ class MainPage:
         self.base_url = base_url
         self.wait = WebDriverWait(driver, timeout=10)
 
-    @allure.step("Open url")
+    @allure.step("Открываем сайт")
     def open(self):
         self.driver.get(self.base_url)
 
     @allure.step("Выбор города из выпадающего списка")
     def select_city_from_dropdown(self, city_name):
-        # 1. Находим инпут и вводим название города
+        """
+         Тест смены города.
+        """
         input_field = WebDriverWait(self.driver, timeout=10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "input.input-city"))
         )
@@ -32,5 +34,4 @@ class MainPage:
             EC.element_to_be_clickable(suggestion_locator)
         )
 
-        # 3. Кликаем на подсказку
         suggestion.click()

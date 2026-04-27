@@ -12,7 +12,7 @@ from pages.city_page import MainPage
 def test_set_delivery_city(setup_browser, site_url):
     main_page = MainPage(setup_browser, site_url)
 
-    with allure.step('Fill form'):
+    with allure.step('Открываем сайт'):
         main_page.open()
 
     with allure.step("Вводим в инпут город"):

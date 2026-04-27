@@ -23,7 +23,7 @@ class SearchPage:
 
     @allure.step("Click search field")
     def click_search_field(self):
-        """Кликаем по полю поиска."""
+        """Тест поиск товара."""
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.element_to_be_clickable(self.SEARCH_INPUT)
         )
@@ -32,7 +32,6 @@ class SearchPage:
 
     @allure.step("Fill search query: {text}")
     def fill_search(self, text):
-        """Вводим поисковый запрос."""
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located(self.SEARCH_INPUT)
         )
@@ -44,7 +43,6 @@ class SearchPage:
 
     @allure.step("Click search button")
     def click_search_button(self):
-        """Кликаем кнопку поиска."""
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.element_to_be_clickable(self.SEARCH_BUTTON)
         )
@@ -54,14 +52,8 @@ class SearchPage:
 
     @allure.step("Verify search results")
     def verify_search_results(self):
-        """Проверка только заголовка"""
-
-        # Проверяем заголовок h1
         h1_text = self.driver.find_element(By.TAG_NAME, "h1").text
         assert "Кофе" in h1_text, f"Заголовок неверный: {h1_text}"
-
-        # Проверяем что URL содержит search
         assert "search" in self.driver.current_url, "URL не содержит search"
 
-        print("✓ Поиск выполнен успешно")
         return self

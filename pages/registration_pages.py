@@ -1,4 +1,3 @@
-
 import allure
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,26 +10,29 @@ class RegistrationPage:
         self.base_url = base_url
         self.wait = WebDriverWait(driver, timeout=10)
 
-    @allure.step("Open url")
+    @allure.step("Открываем сайт")
     def open(self):
         self.driver.get(self.base_url)
 
-    @allure.step("Click on account dropdown arrow")
+    @allure.step("Клик на дропдаун")
     def open_account_menu(self):
+        """
+         Регистрация пользователя.
+        """
         element = WebDriverWait(self.driver, timeout=30).until(
             EC.element_to_be_clickable(
                 (By.XPATH, "//a[@class='main-link']//span[@class='fa fa-chevron-down']"))
         )
         element.click()
 
-    @allure.step("Click Registration button")
+    @allure.step("Клик на кнопку регистрации")
     def click_register(self):
         element = WebDriverWait(self.driver, timeout=30).until(
             EC.element_to_be_clickable((By.ID, "link-register"))
         )
         element.click()
 
-    @allure.step("Fill First Name")
+    @allure.step("Вводим имя")
     def fill_first_name(self, text):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-firstname"))
@@ -38,7 +40,7 @@ class RegistrationPage:
         element.clear()
         element.send_keys(text)
 
-    @allure.step("Fill Last Name")
+    @allure.step("Вводим фамилию")
     def fill_last_name(self, text):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-lastname"))
@@ -46,7 +48,7 @@ class RegistrationPage:
         element.clear()
         element.send_keys(text)
 
-    @allure.step("Fill Email")
+    @allure.step("Вводим email")
     def fill_email(self, text):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-email"))
@@ -54,7 +56,7 @@ class RegistrationPage:
         element.clear()
         element.send_keys(text)
 
-    @allure.step("Fill Phone")
+    @allure.step("Вводим телефон")
     def fill_phone(self, text):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-telephone"))
@@ -62,7 +64,7 @@ class RegistrationPage:
         element.clear()
         element.send_keys(text)
 
-    @allure.step("Fill City")
+    @allure.step("Вводим город")
     def fill_city(self, text):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-city"))
@@ -76,31 +78,24 @@ class RegistrationPage:
         )
         suggestion.click()
 
-    @allure.step("Fill street")
+    @allure.step("Вводим улицу")
     def fill_street(self, text):
-        # 1. Находим поле и вводим текст
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-street"))
         )
         element.clear()
         element.send_keys(text)
 
-        # 2. Ждем появления списка подсказок
-        # По скриншоту видно, что список имеет класс suggestions-list
         WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, "div.suggestions-list"))
         )
 
-        # 3. Кликаем по первой подсказке в списке
-        # На скриншоте подсказка находится внутри div.suggestion-item -> div.main-text
         suggestion = WebDriverWait(self.driver, timeout=10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "div.suggestion-item div.main-text"))
         )
         suggestion.click()
 
-        # Даем время на обработку выбора (опционально)
-
-    @allure.step("Fill House")
+    @allure.step("Вводим номер дома")
     def fill_house(self, text):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-house"))
@@ -108,7 +103,7 @@ class RegistrationPage:
         element.clear()
         element.send_keys(text)
 
-    @allure.step("Password")
+    @allure.step("Вводим пароль")
     def password(self, text):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-password"))
@@ -116,7 +111,7 @@ class RegistrationPage:
         element.clear()
         element.send_keys(text)
 
-    @allure.step("Password Confirm")
+    @allure.step("Вводим подтверждение пароля")
     def password_confirm(self, text):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-password-confirm"))
@@ -124,19 +119,17 @@ class RegistrationPage:
         element.clear()
         element.send_keys(text)
 
-    @allure.step("Checkbox")
+    @allure.step("Клик на чекбокс")
     def checkbox_name(self, ):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "input-agree"))
         )
         element.click()
 
-    @allure.step("Click Register Button")
+    @allure.step("Клик на чекбокс регистрации")
     def click_register_button(self):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn-storum-primary"))
         )
 
         element.click()
-
-        # На сайте регистрации капча ее никак не обойти

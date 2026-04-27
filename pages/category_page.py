@@ -16,14 +16,15 @@ class CategoryPage:
 
     @allure.step("Открывает меню категорий")
     def open_category_menu(self):
-        # Иконка гамбургера или кнопка с классом
+        """
+        Добавляет товар в корзину через раздел категории.
+        """
         catalog_button = WebDriverWait(self.driver, timeout=10).until(
             EC.element_to_be_clickable(
                 (By.CSS_SELECTOR, ".menu-header, .category-menu-toggle, button.navbar-toggle")
             )
         )
         catalog_button.click()
-        time.sleep(0.5)
 
     @allure.step("Выбирает категорию из меню")
     def select_category(self, category_name):
@@ -43,7 +44,6 @@ class CategoryPage:
             )
         )
         subcategory.click()
-        time.sleep(3)
 
     @allure.step("Выбирает подкатегорию по названию")
     def select_subcategory_2(self, subcategory_name: str):
@@ -56,7 +56,6 @@ class CategoryPage:
 
     @allure.step("Добавляет товар в корзину со страницы категории")
     def add_product_to_cart(self, product_id):
-        # Локатор кнопки "В корзину" внутри блока конкретного товара
         cart_btn_locator = (
             By.XPATH,
             f"//div[@class='add-to-cart-bar' and @data-product-id='{product_id}']//a["
@@ -67,7 +66,6 @@ class CategoryPage:
         )
         cart_btn.click()
 
-        # Проверка: появилось уведомление об успешном добавлении
         notification = WebDriverWait(self.driver, timeout=5).until(
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, "div.storum-notification")
@@ -75,7 +73,6 @@ class CategoryPage:
         )
         assert notification.is_displayed(), "Уведомление о добавлении не появилось"
 
-        # Проверка: в уведомлении есть текст "добавлен в корзину"
         notification_text = notification.text
         assert "добавлен" in notification_text.lower(), \
             f"Неверное уведомление: {notification_text}"

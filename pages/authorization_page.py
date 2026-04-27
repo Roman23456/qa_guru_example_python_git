@@ -14,11 +14,11 @@ class AuthorizationPage:
         self.base_url = base_url
         self.wait = WebDriverWait(driver, timeout=10)
 
-    @allure.step("Open url")
+    @allure.step("Открыть сайт")
     def open(self):
         self.driver.get(self.base_url)
 
-    @allure.step("Click on account dropdown arrow")
+    @allure.step("Клик на дропдаун авторизации")
     def open_account_menu(self):
         element = WebDriverWait(self.driver, timeout=30).until(
             EC.element_to_be_clickable(
@@ -27,7 +27,7 @@ class AuthorizationPage:
         )
         element.click()
 
-    @allure.step("Fill Email")
+    @allure.step("Ввод mail")
     def fill_email(self, text=None):
         if text is None:
             text = os.getenv("LOGIN_USER")
@@ -39,7 +39,7 @@ class AuthorizationPage:
         element.send_keys(text)
         assert element.get_attribute("value") == text, f"Email не заполнен. Ожидалось: {text}"
 
-    @allure.step("Fill Password")
+    @allure.step("Ввод пароля")
     def fill_password(self, text=None):
         if text is None:
             text = os.getenv("PASSWORD_USER")
@@ -51,7 +51,7 @@ class AuthorizationPage:
         element.send_keys(text)
         assert len(element.get_attribute("value")) > 0, "Пароль не заполнен"
 
-    @allure.step("Click Login Button")
+    @allure.step("Клик на кнопку авторизации")
     def password_click(self):
         element = WebDriverWait(self.driver, timeout=10).until(
             EC.presence_of_element_located((By.ID, "button-submit-login-form"))
