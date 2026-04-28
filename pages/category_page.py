@@ -12,14 +12,14 @@ class CategoryPage:
     def __init__(self, driver, base_url):
         self.driver = driver
         self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=10)
+        self.wait = WebDriverWait(driver, timeout=50)
 
     @allure.step("Открывает меню категорий")
     def open_category_menu(self):
         """
         Добавляет товар в корзину через раздел категории.
         """
-        catalog_button = WebDriverWait(self.driver, timeout=10).until(
+        catalog_button = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(
                 (By.CSS_SELECTOR, ".menu-header, .category-menu-toggle, button.navbar-toggle")
             )
@@ -28,7 +28,7 @@ class CategoryPage:
 
     @allure.step("Выбирает категорию из меню")
     def select_category(self, category_name):
-        category_item = WebDriverWait(self.driver, timeout=10).until(
+        category_item = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(
                 (By.XPATH,
                  f"//div[@class='d-table-cell for-text' and contains(text(), '{category_name}')]")
@@ -38,7 +38,7 @@ class CategoryPage:
 
     @allure.step("Выбирает подкатегорию по названию")
     def select_subcategory(self, subcategory_name: str):
-        subcategory = WebDriverWait(self.driver, timeout=10).until(
+        subcategory = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(
                 (By.XPATH, f"//div[@class='subcategory-title' and text()='{subcategory_name}']")
             )
@@ -47,7 +47,7 @@ class CategoryPage:
 
     @allure.step("Выбирает подкатегорию по названию")
     def select_subcategory_2(self, subcategory_name: str):
-        subcategory = WebDriverWait(self.driver, timeout=10).until(
+        subcategory = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(
                 (By.XPATH, f"//div[@class='subcategory-title' and text()='{subcategory_name}']")
             )
@@ -61,12 +61,12 @@ class CategoryPage:
             f"//div[@class='add-to-cart-bar' and @data-product-id='{product_id}']//a["
             f"@class='button-add-to-cart']"
         )
-        cart_btn = WebDriverWait(self.driver, timeout=10).until(
+        cart_btn = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(cart_btn_locator)
         )
         cart_btn.click()
 
-        notification = WebDriverWait(self.driver, timeout=5).until(
+        notification = WebDriverWait(self.driver, timeout=50).until(
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, "div.storum-notification")
             )

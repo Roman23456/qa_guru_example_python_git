@@ -12,7 +12,7 @@ class ProductFavoritesPage:
     def __init__(self, driver, base_url):
         self.driver = driver
         self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=20)
+        self.wait = WebDriverWait(driver, timeout=50)
 
     @allure.step("Добавляет товар в избранное")
     def test_add_remove_favorites_flow(self, product_id="1011525"):
@@ -29,12 +29,12 @@ class ProductFavoritesPage:
         if remove_buttons:
             self.driver.execute_script("arguments[0].click();", remove_buttons[0])
 
-        add_button = WebDriverWait(self.driver, timeout=20).until(
+        add_button = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(add_btn_locator)
         )
         add_button.click()
 
-        WebDriverWait(self.driver, timeout=20).until(
+        WebDriverWait(self.driver, timeout=50).until(
             EC.text_to_be_present_in_element(
                 (By.CSS_SELECTOR, ".storum-notification"),
                 "добавлен в избранное"

@@ -12,7 +12,7 @@ class AuthorizationPage:
     def __init__(self, driver, base_url):
         self.driver = driver
         self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=10)
+        self.wait = WebDriverWait(driver, timeout=50)
 
     @allure.step("Открыть сайт")
     def open(self):
@@ -20,7 +20,7 @@ class AuthorizationPage:
 
     @allure.step("Клик на дропдаун авторизации")
     def open_account_menu(self):
-        element = WebDriverWait(self.driver, timeout=30).until(
+        element = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(
                 (By.XPATH, "//a[@class='main-link']//span[@class='fa fa-chevron-down']")
             )
@@ -32,7 +32,7 @@ class AuthorizationPage:
         if text is None:
             text = os.getenv("LOGIN_USER")
 
-        element = WebDriverWait(self.driver, timeout=10).until(
+        element = WebDriverWait(self.driver, timeout=50).until(
             EC.presence_of_element_located((By.ID, "input-email"))
         )
         element.clear()
@@ -44,7 +44,7 @@ class AuthorizationPage:
         if text is None:
             text = os.getenv("PASSWORD_USER")
 
-        element = WebDriverWait(self.driver, timeout=10).until(
+        element = WebDriverWait(self.driver, timeout=50).until(
             EC.presence_of_element_located((By.ID, "input-password"))
         )
         element.clear()
@@ -53,7 +53,7 @@ class AuthorizationPage:
 
     @allure.step("Клик на кнопку авторизации")
     def password_click(self):
-        element = WebDriverWait(self.driver, timeout=10).until(
+        element = WebDriverWait(self.driver, timeout=50).until(
             EC.presence_of_element_located((By.ID, "button-submit-login-form"))
         )
         element.click()

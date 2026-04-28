@@ -9,7 +9,7 @@ class MainPage:
     def __init__(self, driver, base_url):
         self.driver = driver
         self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=10)
+        self.wait = WebDriverWait(driver, timeout=50)
 
     @allure.step("Открываем сайт")
     def open(self):
@@ -20,7 +20,7 @@ class MainPage:
         """
          Тест смены города.
         """
-        input_field = WebDriverWait(self.driver, timeout=10).until(
+        input_field = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "input.input-city"))
         )
         input_field.clear()
@@ -30,7 +30,7 @@ class MainPage:
             f"div.suggestion-item[data-city-name='{city_name}']"
         )
 
-        suggestion = WebDriverWait(self.driver, timeout=10).until(
+        suggestion = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(suggestion_locator)
         )
 

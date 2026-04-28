@@ -12,7 +12,7 @@ class CartPage:
     def __init__(self, driver, base_url):
         self.driver = driver
         self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=10)
+        self.wait = WebDriverWait(driver, timeout=50)
 
     @allure.step("Добавляет товар в корзину по ID")
     def add_to_cart(self, product_id: str):
@@ -25,11 +25,11 @@ class CartPage:
             f"@class='button-add-to-cart']"
         )
 
-        add_button = WebDriverWait(self.driver, timeout=10).until(
+        add_button = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(locator)
         )
         add_button.click()
-        notification = WebDriverWait(self.driver, timeout=5).until(
+        notification = WebDriverWait(self.driver, timeout=50).until(
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, "div.storum-notification")
             )

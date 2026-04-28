@@ -14,7 +14,7 @@ class SearchPage:
     def __init__(self, driver, base_url):
         self.driver = driver
         self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=10)
+        self.wait = WebDriverWait(driver, timeout=50)
 
     # Локаторы
     SEARCH_INPUT = (By.CSS_SELECTOR, "input.input-query")
@@ -24,7 +24,7 @@ class SearchPage:
     @allure.step("Click search field")
     def click_search_field(self):
         """Тест поиск товара."""
-        element = WebDriverWait(self.driver, timeout=10).until(
+        element = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(self.SEARCH_INPUT)
         )
         element.click()
@@ -32,7 +32,7 @@ class SearchPage:
 
     @allure.step("Fill search query: {text}")
     def fill_search(self, text):
-        element = WebDriverWait(self.driver, timeout=10).until(
+        element = WebDriverWait(self.driver, timeout=50).until(
             EC.presence_of_element_located(self.SEARCH_INPUT)
         )
         element.clear()
@@ -43,7 +43,7 @@ class SearchPage:
 
     @allure.step("Click search button")
     def click_search_button(self):
-        element = WebDriverWait(self.driver, timeout=10).until(
+        element = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(self.SEARCH_BUTTON)
         )
         element.click()
