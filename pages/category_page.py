@@ -16,15 +16,13 @@ class CategoryPage:
 
     @allure.step("Открывает меню категорий")
     def open_category_menu(self):
-        """
-        Добавляет товар в корзину через раздел категории.
-        """
         catalog_button = WebDriverWait(self.driver, timeout=50).until(
             EC.element_to_be_clickable(
                 (By.CSS_SELECTOR, ".menu-header, .category-menu-toggle, button.navbar-toggle")
             )
         )
-        catalog_button.click()
+        self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", catalog_button)
+        self.driver.execute_script("arguments[0].click();", catalog_button)
 
     @allure.step("Выбирает категорию из меню")
     def select_category(self, category_name):

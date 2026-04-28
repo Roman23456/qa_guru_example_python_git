@@ -16,16 +16,13 @@ class CheckoutPage:
 
     @allure.step("Переход в корзину")
     def open_cart(self):
-        """
-         Оформление заказа.
-        """
-        cart_button = WebDriverWait(self.driver, timeout=50).until(
-            EC.element_to_be_clickable(
-                (By.XPATH, "//div[contains(@class, ""'module-cart')]//p[contains(text(), "
-                           "'корзина')]")
+        self.driver.get(self.base_url.rstrip('/') + '/cart/')
+        WebDriverWait(self.driver, timeout=50).until(
+            EC.any_of(
+                EC.url_contains('/cart'),
+                EC.presence_of_element_located((By.XPATH, "//a[contains(text(), 'Оформить заказ')]"))
             )
         )
-        cart_button.click()
 
     @allure.step("Клик на  кнопку 'Оформить заказ'")
     def proceed_to_checkout(self):

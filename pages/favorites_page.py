@@ -30,9 +30,10 @@ class ProductFavoritesPage:
             self.driver.execute_script("arguments[0].click();", remove_buttons[0])
 
         add_button = WebDriverWait(self.driver, timeout=50).until(
-            EC.element_to_be_clickable(add_btn_locator)
+            EC.presence_of_element_located(add_btn_locator)
         )
-        add_button.click()
+        self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", add_button)
+        self.driver.execute_script("arguments[0].click();", add_button)
 
         WebDriverWait(self.driver, timeout=50).until(
             EC.text_to_be_present_in_element(
