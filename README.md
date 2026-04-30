@@ -101,7 +101,6 @@ qa_guru_yandex_example_python_git/
 │   └── test_set_delivery_city.py
 ├── utils/
 │   └── attach.py                   # Прикрепление скриншотов, логов, видео к Allure
-├── .env                            # Переменные окружения (не коммитить!)
 ├── pytest.ini                      # Конфигурация pytest и Allure
 └── requirements.txt                # Зависимости
 ```
@@ -230,5 +229,7 @@ allure serve allure-results
 
 - Количество пройденных и упавших тестов
 - Ссылка на Allure-отчёт
+
+![alt text](image-5.png)
 
 > Уведомление приходит независимо от результата — как при 100% passed, так и при наличии упавших тестов.
