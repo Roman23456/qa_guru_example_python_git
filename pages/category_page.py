@@ -1,22 +1,15 @@
-import time
 import allure
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from dotenv import load_dotenv
 
-load_dotenv()
+from pages.base_page import BasePage
 
 
-class CategoryPage:
-    def __init__(self, driver, base_url):
-        self.driver = driver
-        self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=50)
+class CategoryPage(BasePage):
 
     @allure.step("Открывает меню категорий")
     def open_category_menu(self):
-        catalog_button = WebDriverWait(self.driver, timeout=50).until(
+        catalog_button = self.wait.until(
             EC.element_to_be_clickable(
                 (By.CSS_SELECTOR, ".menu-header, .category-menu-toggle, button.navbar-toggle")
             )
@@ -26,7 +19,7 @@ class CategoryPage:
 
     @allure.step("Выбирает категорию из меню")
     def select_category(self, category_name):
-        category_item = WebDriverWait(self.driver, timeout=50).until(
+        category_item = self.wait.until(
             EC.element_to_be_clickable(
                 (By.XPATH,
                  f"//div[@class='d-table-cell for-text' and contains(text(), '{category_name}')]")
@@ -36,16 +29,7 @@ class CategoryPage:
 
     @allure.step("Выбирает подкатегорию по названию")
     def select_subcategory(self, subcategory_name: str):
-        subcategory = WebDriverWait(self.driver, timeout=50).until(
-            EC.element_to_be_clickable(
-                (By.XPATH, f"//div[@class='subcategory-title' and text()='{subcategory_name}']")
-            )
-        )
-        subcategory.click()
-
-    @allure.step("Выбирает подкатегорию по названию")
-    def select_subcategory_2(self, subcategory_name: str):
-        subcategory = WebDriverWait(self.driver, timeout=50).until(
+        subcategory = self.wait.until(
             EC.element_to_be_clickable(
                 (By.XPATH, f"//div[@class='subcategory-title' and text()='{subcategory_name}']")
             )
@@ -59,20 +43,13 @@ class CategoryPage:
             f"//div[@class='add-to-cart-bar' and @data-product-id='{product_id}']//a["
             f"@class='button-add-to-cart']"
         )
-        cart_btn = WebDriverWait(self.driver, timeout=50).until(
-            EC.element_to_be_clickable(cart_btn_locator)
-        )
+        cart_btn = self.wait.until(EC.element_to_be_clickable(cart_btn_locator))
         cart_btn.click()
 
-        notification = WebDriverWait(self.driver, timeout=50).until(
-            EC.presence_of_element_located(
-                (By.CSS_SELECTOR, "div.storum-notification")
-            )
+        notification = self.wait.until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "div.storum-notification"))
         )
         assert notification.is_displayed(), "Уведомление о добавлении не появилось"
-
-        notification_text = notification.text
-        assert "добавлен" in notification_text.lower(), \
-            f"Неверное уведомление: {notification_text}"
-
+        assert "добавлен" in notification.text.lower(), \
+            f"Неверное уведомление: {notification.text}"
         return self

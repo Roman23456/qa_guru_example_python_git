@@ -1,14 +1,11 @@
 import allure
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+from pages.base_page import BasePage
 
-class AboutPage:
-    def __init__(self, driver, base_url):
-        self.driver = driver
-        self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=50)
+
+class AboutPage(BasePage):
 
     @allure.step("Клик на 'О нас' в навигации")
     def open_about(self):

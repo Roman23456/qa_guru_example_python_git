@@ -13,7 +13,6 @@ from pages.search_page import SearchPage
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 
-# Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)',
@@ -23,41 +22,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# import requests as http_requests
-
-# from utils.attach import add_screenshot, add_page_source, add_console_logs, add_video
-
-
-def pytest_terminal_summary(terminalreporter, exitstatus, config):
-    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
-    chat_id = os.getenv("TELEGRAM_CHAT_ID")
-    if not bot_token or not chat_id:
-        return
-
-    passed = len(terminalreporter.stats.get("passed", []))
-    failed = len(terminalreporter.stats.get("failed", []))
-    error = len(terminalreporter.stats.get("error", []))
-    total = passed + failed + error
-
-    status = " Все тесты прошли" if exitstatus == 0 else " Есть падения"
-    text = (
-        f"{status}\n"
-        f"Всего: {total} |  {passed} |  {failed} |  {error}"
-    )
-
-    try:
-        resp = http_requests.post(
-            f"https://api.telegram.org/bot{bot_token}/sendMessage",
-            json={"chat_id": chat_id, "text": text},
-            timeout=10,
-        )
-        logger.info(f"Telegram response: {resp.status_code} {resp.text}")
-    except Exception as e:
-        logger.error(f"Telegram send failed: {e}")
-
-
 def pytest_addoption(parser):
-    """Добавляем параметры командной строки"""
     parser.addoption("--test-number", action="store", default="1234356")
     parser.addoption("--test-text", action="store", default="wwwwww")
     parser.addoption("--test-password", action="store", default="1234qj")
@@ -85,54 +50,31 @@ def site_url(request):
 
 
 @pytest.fixture(scope="function")
-def authorized_driver(setup_browser, request):
-    """Фикстура для авторизованного драйвера"""
-
-    base_url = os.getenv("SITE_URL") or "https://storum.ru"
-    auth_page = AuthorizationPage(setup_browser, base_url)
+def authorized_driver(setup_browser, site_url):
+    auth_page = AuthorizationPage(setup_browser, site_url)
     logger.info("Выполняем авторизацию...")
     auth_page.open()
     auth_page.open_account_menu()
     auth_page.fill_email()
     auth_page.fill_password()
     auth_page.password_click()
-
     logger.info("Авторизация выполнена")
     return setup_browser
 
 
 @pytest.fixture(scope="function")
-def perform_search(authorized_driver):
-    """
-    Фикстура которая выполняет поиск и возвращает драйвер
-    с уже выполненным поиском
-    """
-
-    base_url = os.getenv("SITE_URL") or "https://storum.ru"
-    search_page = SearchPage(authorized_driver, base_url)
-
-    # Выполняем поиск (можно передать запрос через параметры)
-    search_query = "Кофе"
-    search_page.fill_search(search_query)
+def perform_search(authorized_driver, site_url):
+    search_page = SearchPage(authorized_driver, site_url)
+    search_page.fill_search("Кофе")
     search_page.click_search_button()
-
     return authorized_driver
 
 
 @pytest.fixture(scope="function")
-def cart_with_product(perform_search, request):
-    """
-    Фикстура, которая добавляет ДВА товара в корзину,
-    чтобы общая сумма была > 950 руб.
-    Возвращает драйвер с уже добавленными товарами.
-    """
-    base_url = os.getenv("SITE_URL") or "https://storum.ru"
-    cart_page = CartPage(perform_search, base_url)
-
+def cart_with_product(perform_search, site_url):
+    cart_page = CartPage(perform_search, site_url)
     cart_page.add_to_cart(product_id="1011525")
-
     cart_page.add_to_cart(product_id="1011525")
-
     return perform_search
 
 

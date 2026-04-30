@@ -16,5 +16,5 @@ def test_add_product_category(authorized_driver, site_url):
         category_page.open_category_menu()
         category_page.select_category("Здоровое питание, экологичные товары")
         category_page.select_subcategory("Вегетарианские продукты")
-        category_page.select_subcategory_2("Бульоны, приправы, специи")
+        category_page.select_subcategory("Бульоны, приправы, специи")
         category_page.add_product_to_cart("279358")

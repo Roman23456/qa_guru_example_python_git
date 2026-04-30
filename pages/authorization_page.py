@@ -1,18 +1,12 @@
 import os
 import allure
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from dotenv import load_dotenv
 
-load_dotenv()
+from pages.base_page import BasePage
 
 
-class AuthorizationPage:
-    def __init__(self, driver, base_url):
-        self.driver = driver
-        self.base_url = base_url
-        self.wait = WebDriverWait(driver, timeout=50)
+class AuthorizationPage(BasePage):
 
     @allure.step("Открыть сайт")
     def open(self):
@@ -20,7 +14,7 @@ class AuthorizationPage:
 
     @allure.step("Клик на дропдаун авторизации")
     def open_account_menu(self):
-        element = WebDriverWait(self.driver, timeout=50).until(
+        element = self.wait.until(
             EC.element_to_be_clickable(
                 (By.XPATH, "//a[@class='main-link']//span[@class='fa fa-chevron-down']")
             )
@@ -32,7 +26,7 @@ class AuthorizationPage:
         if text is None:
             text = os.getenv("LOGIN_USER")
 
-        element = WebDriverWait(self.driver, timeout=50).until(
+        element = self.wait.until(
             EC.presence_of_element_located((By.ID, "input-email"))
         )
         element.clear()
@@ -44,7 +38,7 @@ class AuthorizationPage:
         if text is None:
             text = os.getenv("PASSWORD_USER")
 
-        element = WebDriverWait(self.driver, timeout=50).until(
+        element = self.wait.until(
             EC.presence_of_element_located((By.ID, "input-password"))
         )
         element.clear()
@@ -53,16 +47,10 @@ class AuthorizationPage:
 
     @allure.step("Клик на кнопку авторизации")
     def password_click(self):
-        element = WebDriverWait(self.driver, timeout=50).until(
+        element = self.wait.until(
             EC.presence_of_element_located((By.ID, "button-submit-login-form"))
         )
         element.click()
         current_url = self.driver.current_url
         assert "login" not in current_url or "account" in current_url, \
             f"Кнопка входа не сработала. Текущий URL: {current_url}"
-
-
-
-
-
-
