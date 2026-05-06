@@ -1,4 +1,0 @@
-{'level': 'SEVERE', 'message': 'https://connect.facebook.net/en_US/fbevents.js - Failed to load resource: net::ERR_CERT_COMMON_NAME_INVALID', 'source': 'network', 'timestamp': 1776876927254}
-{'level': 'SEVERE', 'message': 'https://connect.facebook.net/en_US/fbevents.js - Failed to load resource: net::ERR_CERT_COMMON_NAME_INVALID', 'source': 'network', 'timestamp': 1776876932316}
-{'level': 'SEVERE', 'message': 'https://connect.facebook.net/en_US/fbevents.js - Failed to load resource: net::ERR_CERT_COMMON_NAME_INVALID', 'source': 'network', 'timestamp': 1776876935203}
-{'level': 'SEVERE', 'message': 'https://connect.facebook.net/en_US/fbevents.js - Failed to load resource: net::ERR_CERT_COMMON_NAME_INVALID', 'source': 'network', 'timestamp': 1776876937757}

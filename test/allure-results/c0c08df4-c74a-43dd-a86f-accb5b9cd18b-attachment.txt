@@ -1,9 +1,0 @@
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:55 ==================================================
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:56 CONFIGURATION:
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:57   Browser: chrome
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:58   Browser Version: 128.0
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:59   Headless: False
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:60   Window Size: 1920x1080
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:61   Selenoid URL: None
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:62   Site URL: https://demoqa.com/automation-practice-form
-INFO     qa_guru_yandex_example_python_git.test.conftest:conftest.py:63 ==================================================
