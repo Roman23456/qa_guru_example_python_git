@@ -8,6 +8,7 @@ from pages.city_page import CityPage
 @allure.story("Select Delivery City")
 @allure.severity(allure.severity_level.MINOR)
 @allure.tag("delivery", "ui")
+@allure.id("44022")
 @allure.label("owner", "qa_team")
 def test_set_delivery_city(setup_browser, site_url):
     city_page = CityPage(setup_browser, site_url)

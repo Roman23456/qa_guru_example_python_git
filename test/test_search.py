@@ -8,6 +8,7 @@ from pages.search_page import SearchPage
 @allure.story("Search for Products")
 @allure.severity(allure.severity_level.NORMAL)
 @allure.tag("search", "ui")
+@allure.id("44021")
 @allure.label("owner", "qa_team")
 def test_search(authorized_driver, site_url):
     search_page = SearchPage(authorized_driver, site_url)

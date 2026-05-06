@@ -8,6 +8,7 @@ from pages.category_page import CategoryPage
 @allure.story("Add Product from Category Menu")
 @allure.severity(allure.severity_level.NORMAL)
 @allure.tag("category", "ui")
+@allure.id("44016")
 @allure.label("owner", "qa_team")
 def test_add_product_category(authorized_driver, site_url):
     category_page = CategoryPage(authorized_driver, site_url)

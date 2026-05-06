@@ -7,6 +7,7 @@ from pages.brands_page import BrandsPage
 @allure.story("Navigate to brand and add product to cart")
 @allure.severity(allure.severity_level.NORMAL)
 @allure.tag("brands", "ui")
+@allure.id("44033")
 @allure.label("owner", "qa_team")
 def test_add_product_from_brand(authorized_driver, site_url):
     brands_page = BrandsPage(authorized_driver, site_url)

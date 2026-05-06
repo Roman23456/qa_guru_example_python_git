@@ -8,6 +8,7 @@ from pages.cart_page import CartPage
 @allure.story("Add Product to Cart")
 @allure.severity(allure.severity_level.NORMAL)
 @allure.tag("cart", "ui")
+@allure.id("44017")
 @allure.label("owner", "qa_team")
 def test_add_to_cart(perform_search, site_url):
     cart_page = CartPage(perform_search, site_url)

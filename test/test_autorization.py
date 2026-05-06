@@ -7,6 +7,7 @@ from pages.authorization_page import AuthorizationPage
 @allure.story("Successful Login")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.tag("smoke", "auth")
+@allure.id("44018")
 @allure.label("owner", "qa_team")
 def test_authorization_form(setup_browser, site_url):
     authorization_page = AuthorizationPage(setup_browser, site_url)

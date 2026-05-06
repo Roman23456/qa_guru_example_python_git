@@ -7,6 +7,7 @@ from pages.about_page import AboutPage
 @allure.story("Navigate to About page and verify content")
 @allure.severity(allure.severity_level.MINOR)
 @allure.tag("about", "ui")
+@allure.id("44032")
 @allure.label("owner", "qa_team")
 def test_about_page(authorized_driver, site_url):
     about_page = AboutPage(authorized_driver, site_url)

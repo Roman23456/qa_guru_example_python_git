@@ -10,6 +10,7 @@ fake = Faker("ru_RU")
 @allure.story("Register New User")
 @allure.severity(allure.severity_level.NORMAL)
 @allure.tag("registration", "ui")
+@allure.id("44020")
 @allure.label("owner", "qa_team")
 def test_registration_form(setup_browser, site_url):
     registration_page = RegistrationPage(setup_browser, site_url)
