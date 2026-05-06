@@ -181,7 +181,7 @@ allure serve allure-results
 
 ### Удалённый запуск в Jenkins
 
-Проект в Jenkins: [qa_guru_example](https://jenkins.autotests.cloud/job/qa_guru_example/)
+Проект в Jenkins: [Jenkins](https://jenkins.autotests.cloud/job/qa_guru_example/)
 
 ![Jenkins](image/image-1.png)
 
