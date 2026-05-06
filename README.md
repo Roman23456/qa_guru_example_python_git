@@ -3,7 +3,7 @@
 > **STORUM** — сервис доставки продуктов и сопутствующих товаров для дома, офиса или дачи.
 > Сайт: [storum.ru](https://storum.ru/)
 
-![STORUM](image.png)
+![STORUM](image/image.png)
 
 ---
 
@@ -48,15 +48,15 @@
 <p align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50" title="Python"/>
   &nbsp;&nbsp;
-  <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/pytest.svg" width="50" title="Pytest"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width="50" title="Pytest"/>
   &nbsp;&nbsp;
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" width="50" title="Selenium"/>
   &nbsp;&nbsp;
-  <img src="https://avatars.githubusercontent.com/u/5879127?s=200&v=4" width="50" title="Allure Report"/>
+  <img src="https://github.com/allure-framework.png" width="50" title="Allure Report"/>
   &nbsp;&nbsp;
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50" title="Jenkins"/>
   &nbsp;&nbsp;
-  <img src="https://avatars.githubusercontent.com/u/26328555?s=200&v=4" width="50" title="Selenoid"/>
+  <img src="https://github.com/aerokube.png" width="50" title="Selenoid"/>
   &nbsp;&nbsp;
   <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="50" title="Telegram"/>
 </p>
@@ -183,7 +183,7 @@ allure serve allure-results
 
 Проект в Jenkins: [qa_guru_example](https://jenkins.autotests.cloud/job/qa_guru_example/)
 
-![Jenkins](image-1.png)
+![Jenkins](image/image-1.png)
 
 **Шаги для запуска:**
 
@@ -202,7 +202,7 @@ allure serve allure-results
 
 По завершении прогона формируется Allure-отчёт с детальной информацией о каждом тесте.
 
-![Allure Report](image-2.png)
+![Allure Report](image/image-2.png)
 
 Каждый тест содержит:
 - Пошаговое описание выполненных действий
@@ -211,7 +211,7 @@ allure serve allure-results
 - Логи браузерной консоли
 - Видеозапись прогона (при запуске через Selenoid)
 
-![Allure Report Details](image-3.png)
+![Allure Report Details](image/image-3.png)
 
 ---
 
@@ -230,6 +230,6 @@ allure serve allure-results
 - Количество пройденных и упавших тестов
 - Ссылка на Allure-отчёт
 
-![alt text](image-5.png)
+![alt text](image/image-5.png)
 
 > Уведомление приходит независимо от результата — как при 100% passed, так и при наличии упавших тестов.

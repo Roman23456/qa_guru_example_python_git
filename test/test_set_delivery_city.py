@@ -15,5 +15,8 @@ def test_set_delivery_city(setup_browser, site_url):
     with allure.step('Открываем сайт'):
         city_page.open()
 
-    with allure.step("Вводим в инпут город"):
+    with allure.step("Выбираем город доставки"):
         city_page.select_city_from_dropdown("Ростов-на-Дону")
+
+    with allure.step("Проверяем, что город выбран"):
+        city_page.verify_city_selected("Ростов-на-Дону")

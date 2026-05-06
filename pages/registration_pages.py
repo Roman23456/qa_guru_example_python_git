@@ -115,6 +115,14 @@ class RegistrationPage(BasePage):
         )
         element.click()
 
+    @allure.step("Проверка, что кнопка отправки формы доступна")
+    def verify_submit_button_visible(self):
+        button = self.wait.until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "button.btn-storum-primary"))
+        )
+        assert button.is_displayed(), "Кнопка отправки формы не отображается"
+        assert button.is_enabled(), "Кнопка отправки формы недоступна"
+
     @allure.step("Клик на кнопку отправки регистрации")
     def click_register_button(self):
         element = self.wait.until(

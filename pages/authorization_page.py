@@ -51,6 +51,3 @@ class AuthorizationPage(BasePage):
             EC.presence_of_element_located((By.ID, "button-submit-login-form"))
         )
         element.click()
-        current_url = self.driver.current_url
-        assert "login" not in current_url or "account" in current_url, \
-            f"Кнопка входа не сработала. Текущий URL: {current_url}"

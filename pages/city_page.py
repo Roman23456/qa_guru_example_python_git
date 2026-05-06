@@ -20,3 +20,13 @@ class CityPage(BasePage):
         )
         suggestion = self.wait.until(EC.element_to_be_clickable(suggestion_locator))
         suggestion.click()
+
+    @allure.step("Проверка, что город выбран")
+    def verify_city_selected(self, city_name: str):
+        city_link = self.wait.until(
+            EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, "a.module-geoip--current-city")
+            )
+        )
+        assert city_name in city_link.text, \
+            f"Ожидался город '{city_name}', получено: '{city_link.text}'"
