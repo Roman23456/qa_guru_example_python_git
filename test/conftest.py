@@ -1,7 +1,6 @@
 import pytest
 import logging
 import os
-import requests as http_requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from dotenv import load_dotenv
@@ -15,8 +14,8 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 
 logger = logging.getLogger(__name__)
@@ -27,21 +26,25 @@ def pytest_addoption(parser):
     parser.addoption("--test-text", action="store", default="wwwwww")
     parser.addoption("--test-password", action="store", default="1234qj")
     parser.addoption("--test-date", action="store", default="10.08.1994")
-    parser.addoption("--site-url", action="store",
-                     default=os.getenv("SITE_URL") or "https://storum.ru/",
-                     help="URL тестируемого сайта")
-    parser.addoption("--selenoid-url", action="store", default=os.getenv("SELENOID_URL"),
-                     help="URL удаленного браузера (selenoid)")
-    parser.addoption("--browser", action="store", default="chrome",
-                     help="Браузер: chrome, firefox")
-    parser.addoption("--browser-version", action="store", default="128.0",
-                     help="Версия браузера")
-    parser.addoption("--headless", action="store_true", default=False,
-                     help="Запуск в headless режиме")
-    parser.addoption("--window-width", action="store", default="1920",
-                     help="Ширина окна")
-    parser.addoption("--window-height", action="store", default="1080",
-                     help="Высота окна")
+    parser.addoption(
+        "--site-url",
+        action="store",
+        default=os.getenv("SITE_URL") or "https://storum.ru/",
+        help="URL тестируемого сайта",
+    )
+    parser.addoption(
+        "--selenoid-url",
+        action="store",
+        default=os.getenv("SELENOID_URL"),
+        help="URL удаленного браузера (selenoid)",
+    )
+    parser.addoption("--browser", action="store", default="chrome", help="Браузер: chrome, firefox")
+    parser.addoption("--browser-version", action="store", default="128.0", help="Версия браузера")
+    parser.addoption(
+        "--headless", action="store_true", default=False, help="Запуск в headless режиме"
+    )
+    parser.addoption("--window-width", action="store", default="1920", help="Ширина окна")
+    parser.addoption("--window-height", action="store", default="1080", help="Высота окна")
 
 
 @pytest.fixture(scope="session")
@@ -78,7 +81,7 @@ def cart_with_product(perform_search, site_url):
     return perform_search
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def setup_browser(request):
     browser = request.config.getoption("--browser")
     browser_version = request.config.getoption("--browser-version")
@@ -98,29 +101,23 @@ def setup_browser(request):
     logger.info("=" * 50)
 
     options = Options()
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--disable-gpu')
-    options.add_argument(f'--window-size={window_width},{window_height}')
-    options.add_argument('--disable-blink-features=AutomationControlled')
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument(f"--window-size={window_width},{window_height}")
+    options.add_argument("--disable-blink-features=AutomationControlled")
 
     if headless:
-        options.add_argument('--headless')
+        options.add_argument("--headless")
 
     if selenoid_url:
         selenoid_capabilities = {
             "browserName": browser,
             "browserVersion": browser_version,
-            "selenoid:options": {
-                "enableVNC": True,
-                "enableVideo": True
-            }
+            "selenoid:options": {"enableVNC": True, "enableVideo": True},
         }
         options.capabilities.update(selenoid_capabilities)
-        driver = webdriver.Remote(
-            command_executor=selenoid_url,
-            options=options
-        )
+        driver = webdriver.Remote(command_executor=selenoid_url, options=options)
     else:
         driver = webdriver.Chrome(options=options)
 

@@ -21,8 +21,10 @@ class CategoryPage(BasePage):
     def select_category(self, category_name):
         category_item = self.wait.until(
             EC.element_to_be_clickable(
-                (By.XPATH,
-                 f"//div[@class='d-table-cell for-text' and contains(text(), '{category_name}')]")
+                (
+                    By.XPATH,
+                    f"//div[@class='d-table-cell for-text' and contains(text(), '{category_name}')]",
+                )
             )
         )
         category_item.click()
@@ -41,7 +43,7 @@ class CategoryPage(BasePage):
         cart_btn_locator = (
             By.XPATH,
             f"//div[@class='add-to-cart-bar' and @data-product-id='{product_id}']//a["
-            f"@class='button-add-to-cart']"
+            f"@class='button-add-to-cart']",
         )
         cart_btn = self.wait.until(EC.element_to_be_clickable(cart_btn_locator))
         cart_btn.click()
@@ -50,6 +52,5 @@ class CategoryPage(BasePage):
             EC.presence_of_element_located((By.CSS_SELECTOR, "div.storum-notification"))
         )
         assert notification.is_displayed(), "Уведомление о добавлении не появилось"
-        assert "добавлен" in notification.text.lower(), \
-            f"Неверное уведомление: {notification.text}"
+        assert "добавлен" in notification.text.lower(), f"Неверное уведомление: {notification.text}"
         return self

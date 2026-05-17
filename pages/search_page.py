@@ -22,8 +22,9 @@ class SearchPage(BasePage):
         element = self.wait.until(EC.presence_of_element_located(self.SEARCH_INPUT))
         element.clear()
         element.send_keys(text)
-        assert element.get_attribute("value") == text, \
-            f"Поисковый запрос не заполнен. Ожидалось: {text}"
+        assert (
+            element.get_attribute("value") == text
+        ), f"Поисковый запрос не заполнен. Ожидалось: {text}"
         return self
 
     @allure.step("Click search button")

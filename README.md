@@ -46,19 +46,19 @@
 ## Технологический стек
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50" title="Python"/>
+  <a href="https://www.python.org/" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50"/></a>
   &nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width="50" title="Pytest"/>
+  <a href="https://pytest.org/" title="Pytest"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width="50"/></a>
   &nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" width="50" title="Selenium"/>
+  <a href="https://www.selenium.dev/" title="Selenium"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" width="50"/></a>
   &nbsp;&nbsp;
-  <img src="https://github.com/allure-framework.png" width="50" title="Allure Report"/>
+  <a href="https://allurereport.org/" title="Allure Report"><img src="https://github.com/allure-framework.png" width="50"/></a>
   &nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50" title="Jenkins"/>
+  <a href="https://www.jenkins.io/" title="Jenkins"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50"/></a>
   &nbsp;&nbsp;
-  <img src="https://github.com/aerokube.png" width="50" title="Selenoid"/>
+  <a href="https://aerokube.com/selenoid/" title="Selenoid"><img src="https://github.com/aerokube.png" width="50"/></a>
   &nbsp;&nbsp;
-  <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="50" title="Telegram"/>
+  <a href="https://telegram.org/" title="Telegram"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="50"/></a>
 </p>
 
 | Инструмент | Назначение |

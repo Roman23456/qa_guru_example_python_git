@@ -13,7 +13,7 @@ from pages.category_page import CategoryPage
 def test_add_product_category(authorized_driver, site_url):
     category_page = CategoryPage(authorized_driver, site_url)
 
-    with allure.step('Add product to cart'):
+    with allure.step("Add product to cart"):
         category_page.open_category_menu()
         category_page.select_category("Здоровое питание, экологичные товары")
         category_page.select_subcategory("Вегетарианские продукты")

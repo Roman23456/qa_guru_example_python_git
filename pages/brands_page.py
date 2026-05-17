@@ -21,13 +21,14 @@ class BrandsPage(BasePage):
     def select_brand(self, brand_name: str):
         brand_link = self.wait.until(
             EC.element_to_be_clickable(
-                (By.XPATH, f"//a[contains(@class,'cl-inh') and normalize-space(text())='{brand_name}']")
+                (
+                    By.XPATH,
+                    f"//a[contains(@class,'cl-inh') and normalize-space(text())='{brand_name}']",
+                )
             )
         )
         brand_link.click()
-        self.wait.until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "div.add-to-cart-bar"))
-        )
+        self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.add-to-cart-bar")))
 
     @allure.step("Добавление первого товара в корзину")
     def add_first_product_to_cart(self):
@@ -42,6 +43,7 @@ class BrandsPage(BasePage):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "div.storum-notification"))
         )
         assert notification.is_displayed(), "Уведомление о добавлении не появилось"
-        assert "добавлен" in notification.text.lower(), \
-            f"Неверный текст уведомления: {notification.text}"
+        assert (
+            "добавлен" in notification.text.lower()
+        ), f"Неверный текст уведомления: {notification.text}"
         return notification.text

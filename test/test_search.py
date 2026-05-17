@@ -13,7 +13,7 @@ from pages.search_page import SearchPage
 def test_search(authorized_driver, site_url):
     search_page = SearchPage(authorized_driver, site_url)
 
-    with allure.step('Search input'):
+    with allure.step("Search input"):
         search_page.click_search_field()
         search_page.fill_search("Кофе")
         search_page.click_search_button()

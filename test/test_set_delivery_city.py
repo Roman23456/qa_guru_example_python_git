@@ -13,7 +13,7 @@ from pages.city_page import CityPage
 def test_set_delivery_city(setup_browser, site_url):
     city_page = CityPage(setup_browser, site_url)
 
-    with allure.step('Открываем сайт'):
+    with allure.step("Открываем сайт"):
         city_page.open()
 
     with allure.step("Выбираем город доставки"):

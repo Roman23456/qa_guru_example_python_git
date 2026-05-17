@@ -22,8 +22,9 @@ class AboutPage(BasePage):
         heading = self.wait.until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "h1.page-heading"))
         )
-        assert heading.text.strip() == expected, \
-            f"Заголовок: ожидалось '{expected}', получено '{heading.text}'"
+        assert (
+            heading.text.strip() == expected
+        ), f"Заголовок: ожидалось '{expected}', получено '{heading.text}'"
 
     @allure.step("Проверка текста описания компании")
     def check_description_text(self):

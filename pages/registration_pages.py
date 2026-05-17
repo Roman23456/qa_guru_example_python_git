@@ -11,74 +11,60 @@ class RegistrationPage(BasePage):
     def open_account_menu(self):
         element = self.wait.until(
             EC.element_to_be_clickable(
-                (By.XPATH, "//a[@class='main-link']//span[@class='fa fa-chevron-down']"))
+                (By.XPATH, "//a[@class='main-link']//span[@class='fa fa-chevron-down']")
+            )
         )
         element.click()
 
     @allure.step("Клик на кнопку регистрации")
     def click_register(self):
-        element = self.wait.until(
-            EC.element_to_be_clickable((By.ID, "link-register"))
-        )
+        element = self.wait.until(EC.element_to_be_clickable((By.ID, "link-register")))
         element.click()
 
     @allure.step("Вводим имя")
     def fill_first_name(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-firstname"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-firstname")))
         element.clear()
         element.send_keys(text)
 
     @allure.step("Вводим фамилию")
     def fill_last_name(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-lastname"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-lastname")))
         element.clear()
         element.send_keys(text)
 
     @allure.step("Вводим email")
     def fill_email(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-email"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-email")))
         element.clear()
         element.send_keys(text)
 
     @allure.step("Вводим телефон")
     def fill_phone(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-telephone"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-telephone")))
         element.clear()
         element.send_keys(text)
 
     @allure.step("Вводим город")
     def fill_city(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-city"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-city")))
         element.clear()
         element.send_keys(text)
 
         suggestion = self.wait.until(
             EC.element_to_be_clickable(
-                (By.CSS_SELECTOR, "div.suggestions-list div.suggestion-item"))
+                (By.CSS_SELECTOR, "div.suggestions-list div.suggestion-item")
+            )
         )
         suggestion.click()
 
     @allure.step("Вводим улицу")
     def fill_street(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-street"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-street")))
         element.clear()
         element.send_keys(text)
 
-        self.wait.until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "div.suggestions-list"))
-        )
+        self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.suggestions-list")))
         suggestion = self.wait.until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "div.suggestion-item div.main-text"))
         )
@@ -86,33 +72,25 @@ class RegistrationPage(BasePage):
 
     @allure.step("Вводим номер дома")
     def fill_house(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-house"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-house")))
         element.clear()
         element.send_keys(text)
 
     @allure.step("Вводим пароль")
     def password(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-password"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-password")))
         element.clear()
         element.send_keys(text)
 
     @allure.step("Вводим подтверждение пароля")
     def password_confirm(self, text):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-password-confirm"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-password-confirm")))
         element.clear()
         element.send_keys(text)
 
     @allure.step("Клик на чекбокс")
     def checkbox_name(self):
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-agree"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-agree")))
         element.click()
 
     @allure.step("Проверка, что кнопка отправки формы доступна")

@@ -13,5 +13,5 @@ from pages.cart_page import CartPage
 def test_add_to_cart(perform_search, site_url):
     cart_page = CartPage(perform_search, site_url)
 
-    with allure.step('Добавляем товар в корзину по ID'):
+    with allure.step("Добавляем товар в корзину по ID"):
         cart_page.add_to_cart(product_id="1011525")

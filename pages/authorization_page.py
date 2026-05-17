@@ -26,9 +26,7 @@ class AuthorizationPage(BasePage):
         if text is None:
             text = os.getenv("LOGIN_USER")
 
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-email"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-email")))
         element.clear()
         element.send_keys(text)
         assert element.get_attribute("value") == text, f"Email не заполнен. Ожидалось: {text}"
@@ -38,9 +36,7 @@ class AuthorizationPage(BasePage):
         if text is None:
             text = os.getenv("PASSWORD_USER")
 
-        element = self.wait.until(
-            EC.presence_of_element_located((By.ID, "input-password"))
-        )
+        element = self.wait.until(EC.presence_of_element_located((By.ID, "input-password")))
         element.clear()
         element.send_keys(text)
         assert len(element.get_attribute("value")) > 0, "Пароль не заполнен"
