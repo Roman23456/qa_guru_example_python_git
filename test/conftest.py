@@ -38,6 +38,7 @@ def pytest_addoption(parser):
         help="URL Selenoid для удалённого запуска",
     )
     parser.addoption("--browser", action="store", default="chrome", help="Браузер: chrome, firefox")
+    parser.addoption("--browser-version", action="store", default=None, help="Версия браузера")
     parser.addoption("--headless", action="store_true", default=False, help="Запуск в headless режиме")
 
 
@@ -46,6 +47,9 @@ def apply_cli_config(request):
     cli_site_url = request.config.getoption("--site-url")
     if cli_site_url:
         config.site_url = cli_site_url
+    cli_browser_version = request.config.getoption("--browser-version")
+    if cli_browser_version:
+        config.browser_version = cli_browser_version
 
 
 def _read_browser_config(request) -> _BrowserConfig:
