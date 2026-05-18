@@ -23,7 +23,7 @@ class BrandsPage(BasePage):
 
     @allure.step("Добавление первого товара в корзину")
     def add_first_product_to_cart(self):
-        self.click_element((By.CSS_SELECTOR, "a.button-add-to-cart"))
+        self.click_element((By.CSS_SELECTOR, "div.add-to-cart-bar[data-opt='0'] a.button-add-to-cart"))
 
     @allure.step("Проверка уведомления о добавлении товара")
     def check_product_added_notification(self):
