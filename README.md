@@ -165,17 +165,26 @@ pytest test/test_autorization.py -v
 allure serve allure-results
 ```
 
-#### Доступные параметры запуска
+#### Параметры командной строки (pytest CLI)
 
 | Параметр | По умолчанию | Описание |
 |---------|-------------|---------|
-| `--site-url` | `https://storum.ru/` | URL тестируемого сайта |
+| `--site-url` | из `SITE_URL` или `https://storum.ru/` | URL тестируемого сайта |
 | `--browser` | `chrome` | Браузер (`chrome`, `firefox`) |
-| `--browser-version` | `128.0` | Версия браузера |
-| `--selenoid-url` | — | URL Selenoid для удалённого запуска |
+| `--selenoid-url` | из `SELENOID_URL` | URL Selenoid для удалённого запуска |
 | `--headless` | `False` | Запуск без графического интерфейса |
-| `--window-width` | `1920` | Ширина окна браузера |
-| `--window-height` | `1080` | Высота окна браузера |
+
+#### Параметры через переменные окружения (`.env`)
+
+| Переменная | По умолчанию | Описание |
+|-----------|-------------|---------|
+| `SITE_URL` | `https://storum.ru/` | URL тестируемого сайта |
+| `SELENOID_URL` | — | URL Selenoid |
+| `BROWSER_VERSION` | `128.0` | Версия браузера |
+| `WINDOW_WIDTH` | `1920` | Ширина окна браузера |
+| `WINDOW_HEIGHT` | `1080` | Высота окна браузера |
+| `LOGIN_USER` | — | Email для авторизации |
+| `PASSWORD_USER` | — | Пароль для авторизации |
 
 ---
 

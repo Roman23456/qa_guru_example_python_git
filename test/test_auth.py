@@ -1,8 +1,33 @@
 import allure
 from faker import Faker
-from pages.registration_pages import RegistrationPage
+
+from pages.authorization_page import AuthorizationPage
+from pages.registration_page import RegistrationPage
+from utils.config import config
 
 fake = Faker("ru_RU")
+
+
+@allure.epic("Authentication")
+@allure.feature("User Login")
+@allure.story("Successful Login")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.tag("smoke", "auth")
+@allure.id("44018")
+@allure.label("owner", "qa_team")
+def test_authorization_form(setup_browser):
+    authorization_page = AuthorizationPage(setup_browser, config.site_url)
+
+    with allure.step("Открытие формы авторизации"):
+        authorization_page.open()
+        authorization_page.open_account_menu()
+
+    with allure.step("Ввод учётных данных"):
+        authorization_page.fill_email()
+        authorization_page.fill_password()
+
+    with allure.step("Подтверждение успешной авторизации"):
+        authorization_page.password_click()
 
 
 @allure.epic("Registration")
@@ -12,8 +37,8 @@ fake = Faker("ru_RU")
 @allure.tag("registration", "ui")
 @allure.id("44020")
 @allure.label("owner", "qa_team")
-def test_registration_form(setup_browser, site_url):
-    registration_page = RegistrationPage(setup_browser, site_url)
+def test_registration_form(setup_browser):
+    registration_page = RegistrationPage(setup_browser, config.site_url)
 
     first_name = fake.first_name()
     last_name = fake.last_name()

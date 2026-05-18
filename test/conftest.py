@@ -1,123 +1,99 @@
-import pytest
 import logging
-import os
+from dataclasses import dataclass
+
+import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from dotenv import load_dotenv
-from utils.attach import add_screenshot, add_page_source, add_console_logs, add_video
 
 from pages.authorization_page import AuthorizationPage
-from pages.cart_page import CartPage
-from pages.search_page import SearchPage
-
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
+from utils.attach import add_console_logs, add_page_source, add_screenshot, add_video
+from utils.config import config
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
-
 logger = logging.getLogger(__name__)
 
 
+@dataclass
+class _BrowserConfig:
+    browser: str
+    headless: bool
+    selenoid_url: str
+
+
 def pytest_addoption(parser):
-    parser.addoption("--test-number", action="store", default="1234356")
-    parser.addoption("--test-text", action="store", default="wwwwww")
-    parser.addoption("--test-password", action="store", default="1234qj")
-    parser.addoption("--test-date", action="store", default="10.08.1994")
     parser.addoption(
         "--site-url",
         action="store",
-        default=os.getenv("SITE_URL") or "https://storum.ru/",
-        help="URL тестируемого сайта",
+        default=None,
+        help="URL тестируемого сайта (переопределяет SITE_URL из .env)",
     )
     parser.addoption(
         "--selenoid-url",
         action="store",
-        default=os.getenv("SELENOID_URL"),
-        help="URL удаленного браузера (selenoid)",
+        default=None,
+        help="URL Selenoid для удалённого запуска",
     )
     parser.addoption("--browser", action="store", default="chrome", help="Браузер: chrome, firefox")
-    parser.addoption("--browser-version", action="store", default="128.0", help="Версия браузера")
-    parser.addoption(
-        "--headless", action="store_true", default=False, help="Запуск в headless режиме"
+    parser.addoption("--headless", action="store_true", default=False, help="Запуск в headless режиме")
+
+
+@pytest.fixture(scope="session", autouse=True)
+def apply_cli_config(request):
+    cli_site_url = request.config.getoption("--site-url")
+    if cli_site_url:
+        config.site_url = cli_site_url
+
+
+def _read_browser_config(request) -> _BrowserConfig:
+    return _BrowserConfig(
+        browser=request.config.getoption("--browser"),
+        headless=request.config.getoption("--headless"),
+        selenoid_url=request.config.getoption("--selenoid-url") or "",
     )
-    parser.addoption("--window-width", action="store", default="1920", help="Ширина окна")
-    parser.addoption("--window-height", action="store", default="1080", help="Высота окна")
 
 
-@pytest.fixture(scope="session")
-def site_url(request):
-    return request.config.getoption("--site-url")
-
-
-@pytest.fixture(scope="function")
-def authorized_driver(setup_browser, site_url):
-    auth_page = AuthorizationPage(setup_browser, site_url)
-    logger.info("Выполняем авторизацию...")
-    auth_page.open()
-    auth_page.open_account_menu()
-    auth_page.fill_email()
-    auth_page.fill_password()
-    auth_page.password_click()
-    logger.info("Авторизация выполнена")
-    return setup_browser
-
-
-@pytest.fixture(scope="function")
-def perform_search(authorized_driver, site_url):
-    search_page = SearchPage(authorized_driver, site_url)
-    search_page.fill_search("Кофе")
-    search_page.click_search_button()
-    return authorized_driver
-
-
-@pytest.fixture(scope="function")
-def cart_with_product(perform_search, site_url):
-    cart_page = CartPage(perform_search, site_url)
-    cart_page.add_to_cart(product_id="1011525")
-    cart_page.add_to_cart(product_id="1011525")
-    return perform_search
-
-
-@pytest.fixture(scope="function")
-def setup_browser(request):
-    browser = request.config.getoption("--browser")
-    browser_version = request.config.getoption("--browser-version")
-    headless = request.config.getoption("--headless")
-    window_width = request.config.getoption("--window-width")
-    window_height = request.config.getoption("--window-height")
-    selenoid_url = request.config.getoption("--selenoid-url")
-
+def _log_config(cfg: _BrowserConfig):
     logger.info("=" * 50)
     logger.info("CONFIGURATION:")
-    logger.info(f"  Browser: {browser}")
-    logger.info(f"  Browser Version: {browser_version}")
-    logger.info(f"  Headless: {headless}")
-    logger.info(f"  Window Size: {window_width}x{window_height}")
-    logger.info(f"  Selenoid URL: {selenoid_url}")
-    logger.info(f"  Site URL: {request.config.getoption('--site-url')}")
+    logger.info(f"  Browser:      {cfg.browser} {config.browser_version}")
+    logger.info(f"  Headless:     {cfg.headless}")
+    logger.info(f"  Window Size:  {config.window_width}x{config.window_height}")
+    logger.info(f"  Selenoid URL: {cfg.selenoid_url or '—'}")
+    logger.info(f"  Site URL:     {config.site_url}")
     logger.info("=" * 50)
 
+
+def _build_options(cfg: _BrowserConfig) -> Options:
     options = Options()
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
-    options.add_argument(f"--window-size={window_width},{window_height}")
+    options.add_argument(f"--window-size={config.window_width},{config.window_height}")
     options.add_argument("--disable-blink-features=AutomationControlled")
-
-    if headless:
+    if cfg.headless:
         options.add_argument("--headless")
+    return options
 
-    if selenoid_url:
-        selenoid_capabilities = {
-            "browserName": browser,
-            "browserVersion": browser_version,
-            "selenoid:options": {"enableVNC": True, "enableVideo": True},
-        }
-        options.capabilities.update(selenoid_capabilities)
-        driver = webdriver.Remote(command_executor=selenoid_url, options=options)
+
+@pytest.fixture(scope="function")
+def setup_browser(request):
+    cfg = _read_browser_config(request)
+    _log_config(cfg)
+    options = _build_options(cfg)
+
+    if cfg.selenoid_url:
+        options.capabilities.update(
+            {
+                "browserName": cfg.browser,
+                "browserVersion": config.browser_version,
+                "selenoid:options": {"enableVNC": True, "enableVideo": True},
+            }
+        )
+        driver = webdriver.Remote(command_executor=cfg.selenoid_url, options=options)
     else:
         driver = webdriver.Chrome(options=options)
 
@@ -128,3 +104,16 @@ def setup_browser(request):
     add_console_logs(driver)
     add_video(driver)
     driver.quit()
+
+
+@pytest.fixture(scope="function")
+def authorized_driver(setup_browser):
+    auth_page = AuthorizationPage(setup_browser, config.site_url)
+    logger.info("Выполняем авторизацию...")
+    auth_page.open()
+    auth_page.open_account_menu()
+    auth_page.fill_email()
+    auth_page.fill_password()
+    auth_page.password_click()
+    logger.info("Авторизация выполнена")
+    return setup_browser
