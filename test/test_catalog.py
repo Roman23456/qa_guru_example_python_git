@@ -56,7 +56,7 @@ def test_add_product_from_brand(authorized_driver):
 
     with allure.step("Переход на страницу бренда"):
         brands_page.open_brands()
-        brands_page.select_brand("Alpina Green")
+        brands_page.select_brand("Animal Play")
 
     with allure.step("Добавление товара в корзину и проверка"):
         brands_page.add_first_product_to_cart()

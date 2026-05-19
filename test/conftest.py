@@ -39,7 +39,8 @@ def pytest_addoption(parser):
     )
     parser.addoption("--browser", action="store", default="chrome", help="Браузер: chrome, firefox")
     parser.addoption("--browser-version", action="store", default=None, help="Версия браузера")
-    parser.addoption("--headless", action="store_true", default=False, help="Запуск в headless режиме")
+    parser.addoption("--headless", action="store_true", default=False, help="Запуск в headless "
+                                                                            "режиме")
 
 
 @pytest.fixture(scope="session", autouse=True)

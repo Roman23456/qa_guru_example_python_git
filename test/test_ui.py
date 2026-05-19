@@ -2,6 +2,7 @@ import allure
 
 from pages.about_page import AboutPage
 from pages.city_page import CityPage
+from pages.contacts_page import ContactsPage
 from utils.config import config
 
 
@@ -21,6 +22,31 @@ def test_about_page(authorized_driver):
     with allure.step("Проверка контента страницы"):
         about_page.check_heading("О НАС")
         about_page.check_description_text()
+
+
+@allure.epic("Contacts")
+@allure.feature("Contacts Page")
+@allure.story("Navigate to Contacts and verify Requisites page")
+@allure.severity(allure.severity_level.MINOR)
+@allure.tag("contacts", "requisites", "ui")
+@allure.label("owner", "qa_team")
+def test_contacts_requisites(setup_browser):
+    contacts_page = ContactsPage(setup_browser, config.site_url)
+
+    with allure.step("Открываем главную страницу"):
+        contacts_page.open()
+
+    with allure.step("Переходим на страницу 'Контакты'"):
+        contacts_page.open_contacts()
+
+    with allure.step("Переходим в 'Реквизиты организации'"):
+        contacts_page.open_requisites()
+
+    with allure.step("Проверяем заголовок страницы"):
+        contacts_page.check_requisites_heading("Реквизиты организации")
+
+    with allure.step("Проверяем содержимое реквизитов"):
+        contacts_page.check_requisites_content()
 
 
 @allure.epic("Delivery")
