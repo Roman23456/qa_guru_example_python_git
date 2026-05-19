@@ -47,21 +47,17 @@
 
 ## Технологический стек
 
-<p align="center">
-  <a href="https://www.python.org/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50"/><br/>Python</a>
-  &nbsp;&nbsp;
-  <a href="https://pytest.org/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width="50"/><br/>Pytest</a>
-  &nbsp;&nbsp;
-  <a href="https://www.selenium.dev/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" width="50"/><br/>Selenium</a>
-  &nbsp;&nbsp;
-  <a href="https://allurereport.org/"><img src="https://github.com/allure-framework.png" width="50"/><br/>Allure</a>
-  &nbsp;&nbsp;
-  <a href="https://www.jenkins.io/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50"/><br/>Jenkins</a>
-  &nbsp;&nbsp;
-  <a href="https://aerokube.com/selenoid/"><img src="https://github.com/aerokube.png" width="50"/><br/>Selenoid</a>
-  &nbsp;&nbsp;
-  <a href="https://telegram.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="50"/><br/>Telegram</a>
-</p>
+<table align="center">
+  <tr>
+    <td align="center"><a href="https://www.python.org/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50"/></a><br/>Python</td>
+    <td align="center"><a href="https://pytest.org/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width="50"/></a><br/>Pytest</td>
+    <td align="center"><a href="https://www.selenium.dev/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" width="50"/></a><br/>Selenium</td>
+    <td align="center"><a href="https://allurereport.org/"><img src="https://github.com/allure-framework.png" width="50"/></a><br/>Allure</td>
+    <td align="center"><a href="https://www.jenkins.io/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50"/></a><br/>Jenkins</td>
+    <td align="center"><a href="https://aerokube.com/selenoid/"><img src="https://github.com/aerokube.png" width="50"/></a><br/>Selenoid</td>
+    <td align="center"><a href="https://telegram.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="50"/></a><br/>Telegram</td>
+  </tr>
+</table>
 
 | Инструмент | Назначение |
 |-----------|-----------|
