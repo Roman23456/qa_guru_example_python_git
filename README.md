@@ -212,7 +212,7 @@ allure serve allure-results
 
 По завершении прогона формируется Allure-отчёт с детальной информацией о каждом тесте.
 
-![Allure Report](image/image-2.png)
+![Allure Report](![img.png](img.png))
 
 Каждый тест содержит:
 - Пошаговое описание выполненных действий
