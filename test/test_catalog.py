@@ -56,11 +56,37 @@ def test_add_product_from_brand(authorized_driver):
 
     with allure.step("Переход на страницу бренда"):
         brands_page.open_brands()
-        brands_page.select_brand("Animal Play")
+        brands_page.select_brand("BioCos")
 
     with allure.step("Добавление товара в корзину и проверка"):
         brands_page.add_first_product_to_cart()
         brands_page.check_product_added_notification()
+
+
+@allure.epic("Cart")
+@allure.feature("Clear Cart")
+@allure.story("Clear all products from cart")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.tag("cart", "ui")
+@allure.label("owner", "qa_team")
+def test_clear_cart(authorized_driver):
+    search_page = SearchPage(authorized_driver, config.site_url)
+    cart_page = CartPage(authorized_driver, config.site_url)
+
+    with allure.step("Ищем товар и добавляем в корзину"):
+        search_page.fill_search("Кофе")
+        search_page.click_search_button()
+        cart_page.add_to_cart(product_id="1011525")
+        cart_page.check_add_notification()
+
+    with allure.step("Открываем страницу корзины"):
+        cart_page.open_cart_page()
+
+    with allure.step("Очищаем корзину"):
+        cart_page.clear_cart()
+
+    with allure.step("Проверяем, что корзина пуста"):
+        cart_page.check_cart_is_empty()
 
 
 @allure.epic("Category")
