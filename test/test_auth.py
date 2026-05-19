@@ -60,8 +60,8 @@ def test_registration_form(setup_browser):
         registration_page.fill_city("Ростов-на-Дону")
         registration_page.fill_street("пр-кт Маршала Жукова")
         registration_page.fill_house("14")
-        registration_page.password("12345")
-        registration_page.password_confirm("12345")
+        registration_page.password(config.registration_password)
+        registration_page.password_confirm(config.registration_password)
         registration_page.checkbox_name()
 
     with allure.step("Проверка готовности формы к отправке"):

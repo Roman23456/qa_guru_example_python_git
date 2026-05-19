@@ -35,44 +35,47 @@
 | 1 | **Авторизация** | Вход в аккаунт по email и паролю | `CRITICAL` |
 | 2 | **Регистрация** | Заполнение формы регистрации нового пользователя | `NORMAL` |
 | 3 | **Поиск** | Поиск товара через строку поиска и проверка результатов | `NORMAL` |
-| 4 | **Корзина** | Добавление товара в корзину по ID | `NORMAL` |
-| 5 | **Бренды** | Переход на страницу бренда и добавление товара в корзину | `NORMAL` |
-| 6 | **Категории** | Добавление товара через меню категорий | `NORMAL` |
-| 7 | **Доставка** | Выбор города доставки из выпадающего списка | `MINOR` |
-| 8 | **О нас** | Переход на страницу «О нас» и проверка контента | `MINOR` |
+| 4 | **Корзина** | Добавление товара в корзину и проверка наличия в корзине | `NORMAL` |
+| 5 | **Корзина** | Очистка корзины с подтверждением и проверка пустой корзины | `NORMAL` |
+| 6 | **Бренды** | Переход на страницу бренда и добавление товара в корзину | `NORMAL` |
+| 7 | **Категории** | Добавление товара через меню категорий | `NORMAL` |
+| 8 | **Доставка** | Выбор города доставки из выпадающего списка | `MINOR` |
+| 9 | **Контакты** | Заполнение формы обратной связи и проверка поля сообщения | `NORMAL` |
+| 10 | **Контакты** | Переход на страницу реквизитов и проверка содержимого | `MINOR` |
 
 ---
 
 ## Технологический стек
 
 <p align="center">
-  <a href="https://www.python.org/" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50"/></a>
+  <a href="https://www.python.org/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50"/><br/>Python</a>
   &nbsp;&nbsp;
-  <a href="https://pytest.org/" title="Pytest"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width="50"/></a>
+  <a href="https://pytest.org/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytest/pytest-original.svg" width="50"/><br/>Pytest</a>
   &nbsp;&nbsp;
-  <a href="https://www.selenium.dev/" title="Selenium"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" width="50"/></a>
+  <a href="https://www.selenium.dev/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" width="50"/><br/>Selenium</a>
   &nbsp;&nbsp;
-  <a href="https://allurereport.org/" title="Allure Report"><img src="https://github.com/allure-framework.png" width="50"/></a>
+  <a href="https://allurereport.org/"><img src="https://github.com/allure-framework.png" width="50"/><br/>Allure</a>
   &nbsp;&nbsp;
-  <a href="https://www.jenkins.io/" title="Jenkins"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50"/></a>
+  <a href="https://www.jenkins.io/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" width="50"/><br/>Jenkins</a>
   &nbsp;&nbsp;
-  <a href="https://aerokube.com/selenoid/" title="Selenoid"><img src="https://github.com/aerokube.png" width="50"/></a>
+  <a href="https://aerokube.com/selenoid/"><img src="https://github.com/aerokube.png" width="50"/><br/>Selenoid</a>
   &nbsp;&nbsp;
-  <a href="https://telegram.org/" title="Telegram"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="50"/></a>
+  <a href="https://telegram.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="50"/><br/>Telegram</a>
 </p>
 
 | Инструмент | Назначение |
 |-----------|-----------|
 | **Python 3.11** | Язык программирования |
-| **Pytest** | Тест-фреймворк |
-| **Selenium WebDriver** | Управление браузером |
-| **Page Object Model** | Архитектурный паттерн |
-| **Allure Report** | Отчётность по тестам |
-| **Allure TestOps** | Test-менеджмент система |
-| **Jenkins** | CI/CD для автозапуска тестов |
-| **Selenoid** | Удалённый запуск браузеров в Docker |
-| **python-dotenv** | Управление конфигурацией через `.env` |
-| **Telegram Bot API** | Уведомления о результатах прогона |
+| **Pytest** | Тест-фреймворк: запуск тестов, фикстуры, параметризация |
+| **Selenium WebDriver** | Управление браузером в UI-тестах |
+| **Page Object Model** | Архитектурный паттерн изоляции UI-логики |
+| **Faker** | Генерация случайных тестовых данных |
+| **Allure Report** | Формирование наглядных отчётов о прогоне |
+| **Allure TestOps** | Управление тест-кейсами и история запусков |
+| **Jenkins** | CI/CD: автоматический запуск тестов по расписанию и по коммиту |
+| **Selenoid** | Удалённый запуск браузеров в Docker-контейнерах |
+| **python-dotenv** | Чтение конфигурации из `.env`-файла |
+| **Telegram Bot API** | Уведомления о результатах прогона в Telegram-чат |
 
 ---
 
@@ -81,26 +84,24 @@
 ```
 qa_guru_yandex_example_python_git/
 ├── pages/                          # Page Objects
-│   ├── about_page.py               # Страница «О нас»
+│   ├── base_page.py                # Базовый класс с общими методами ожидания
 │   ├── authorization_page.py       # Страница авторизации
-│   ├── brands_page.py              # Страница брендов
+│   ├── registration_page.py        # Страница регистрации
+│   ├── search_page.py              # Поиск
 │   ├── cart_page.py                # Корзина
+│   ├── brands_page.py              # Страница брендов
 │   ├── category_page.py            # Категории товаров
-│   ├── city_page.py                # Выбор города
-│   ├── registration_pages.py       # Регистрация
-│   └── search_page.py              # Поиск
+│   ├── city_page.py                # Выбор города доставки
+│   └── contacts_page.py            # Страница контактов и реквизитов
 ├── test/                           # Тесты
-│   ├── conftest.py                 # Фикстуры, настройка браузера, Telegram-уведомления
-│   ├── test_about.py
-│   ├── test_add_product_from_category_menu.py
-│   ├── test_add_to_cart.py
-│   ├── test_autorization.py
-│   ├── test_brands.py
-│   ├── test_registration_form.py
-│   ├── test_search.py
-│   └── test_set_delivery_city.py
+│   ├── conftest.py                 # Фикстуры и настройка браузера
+│   ├── test_auth.py                # Авторизация и регистрация
+│   ├── test_catalog.py             # Поиск, корзина, бренды, категории
+│   └── test_navigation.py          # Контакты, доставка
 ├── utils/
-│   └── attach.py                   # Прикрепление скриншотов, логов, видео к Allure
+│   ├── attach.py                   # Прикрепление скриншотов, логов, видео к Allure
+│   └── config.py                   # Конфигурация через .env
+├── .env                            # Переменные окружения (не в git)
 ├── pytest.ini                      # Конфигурация pytest и Allure
 └── requirements.txt                # Зависимости
 ```
@@ -127,6 +128,7 @@ pip install -r requirements.txt
 SITE_URL=https://storum.ru/
 LOGIN_USER=your_email@example.com
 PASSWORD_USER=your_password
+REGISTRATION_PASSWORD=your_test_password
 
 # Опционально — для Telegram-уведомлений
 TELEGRAM_BOT_TOKEN=your_bot_token
@@ -157,7 +159,7 @@ pytest test/ -v --browser=chrome --browser-version=128.0
 
 Запуск отдельного тест-файла:
 ```bash
-pytest test/test_autorization.py -v
+pytest test/test_auth.py -v
 ```
 
 После прогона открыть Allure-отчёт:
@@ -185,12 +187,13 @@ allure serve allure-results
 | `WINDOW_HEIGHT` | `1080` | Высота окна браузера |
 | `LOGIN_USER` | — | Email для авторизации |
 | `PASSWORD_USER` | — | Пароль для авторизации |
+| `REGISTRATION_PASSWORD` | — | Пароль для тестовой регистрации |
 
 ---
 
 ### Удалённый запуск в Jenkins
 
-Проект в Jenkins: [Jenkins](https://jenkins.autotests.cloud/job/qa_guru_example/)
+> [Открыть проект в Jenkins](https://jenkins.autotests.cloud/job/qa_guru_example/)
 
 ![Jenkins](image/image-1.png)
 
@@ -209,6 +212,8 @@ allure serve allure-results
 
 ## Allure-отчёт
 
+> [Открыть пример Allure-отчёта](https://jenkins.autotests.cloud/job/qa_guru_example/allure/)
+
 По завершении прогона формируется Allure-отчёт с детальной информацией о каждом тесте.
 
 ![Allure Report](image/image-2.png)
@@ -226,9 +231,9 @@ allure serve allure-results
 
 ## Интеграция с Allure TestOps
 
-Результаты синхронизируются с **Allure TestOps** — системой управления тестами, которая позволяет отслеживать историю запусков, анализировать статистику и управлять тест-кейсами.
+> [Открыть запуск в Allure TestOps](https://allure.autotests.cloud/launch/52702/tree/776703)
 
-[Открыть запуск в Allure TestOps](https://allure.autotests.cloud/launch/52702/tree/776703)
+Результаты синхронизируются с **Allure TestOps** — системой управления тестами, которая позволяет отслеживать историю запусков, анализировать статистику и управлять тест-кейсами.
 
 ---
 

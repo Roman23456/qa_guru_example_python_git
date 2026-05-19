@@ -24,9 +24,13 @@ class CartPage(BasePage):
 
     @allure.step("Проверяет уведомление о добавлении товара")
     def check_add_notification(self):
-        notification = self.wait.until(EC.presence_of_element_located(self._NOTIFICATION))
+        notification = self.wait.until(
+            EC.presence_of_element_located(self._NOTIFICATION)
+        )
         assert notification.is_displayed(), "Уведомление о добавлении не появилось"
-        assert "добавлен" in notification.text.lower(), f"Неверное уведомление: {notification.text}"
+        assert (
+            "добавлен" in notification.text.lower()
+        ), f"Неверное уведомление: {notification.text}"
         return notification.text
 
     @allure.step("Открывает страницу корзины")
@@ -39,7 +43,13 @@ class CartPage(BasePage):
         self.click_element(self._CLEAR_CART_BTN)
         self.click_element(self._CONFIRM_YES_BTN)
 
+    @allure.step("Проверяет, что в корзине есть товары")
+    def check_cart_has_items(self):
+        self.wait.until(EC.invisibility_of_element_located(self._CART_EMPTY_WARNING))
+
     @allure.step("Проверяет, что корзина пуста")
     def check_cart_is_empty(self):
-        empty_block = self.wait.until(EC.visibility_of_element_located(self._CART_EMPTY_WARNING))
+        empty_block = self.wait.until(
+            EC.visibility_of_element_located(self._CART_EMPTY_WARNING)
+        )
         assert empty_block.is_displayed(), "Блок 'корзина пуста' не отображается"

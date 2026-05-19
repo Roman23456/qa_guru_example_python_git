@@ -4,11 +4,18 @@ from allure_commons.types import AttachmentType
 
 def add_screenshot(driver):
     png = driver.get_screenshot_as_png()
-    allure.attach(body=png, name="screenshot", attachment_type=AttachmentType.PNG, extension=".png")
+    allure.attach(
+        body=png,
+        name="screenshot",
+        attachment_type=AttachmentType.PNG,
+        extension=".png",
+    )
 
 
 def add_console_logs(driver):
-    log = "".join(f"{text}\n" for text in driver.execute("getLog", {"type": "browser"})["value"])
+    log = "".join(
+        f"{text}\n" for text in driver.execute("getLog", {"type": "browser"})["value"]
+    )
     allure.attach(log, "browser_logs", AttachmentType.TEXT, ".log")
 
 

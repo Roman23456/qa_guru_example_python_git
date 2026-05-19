@@ -1,27 +1,28 @@
 import allure
 
-from pages.about_page import AboutPage
 from pages.city_page import CityPage
 from pages.contacts_page import ContactsPage
 from utils.config import config
 
 
-@allure.epic("About")
-@allure.feature("About Page")
-@allure.story("Navigate to About page and verify content")
-@allure.severity(allure.severity_level.MINOR)
-@allure.tag("about", "ui")
-@allure.id("44032")
+@allure.epic("Contacts")
+@allure.feature("Contact Form")
+@allure.story("Fill contact form and verify message content")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.tag("contacts", "form", "ui")
 @allure.label("owner", "qa_team")
-def test_about_page(authorized_driver):
-    about_page = AboutPage(authorized_driver, config.site_url)
+def test_contact_form(authorized_driver):
+    contacts_page = ContactsPage(authorized_driver, config.site_url)
 
-    with allure.step("Переход на страницу 'О нас'"):
-        about_page.open_about()
+    with allure.step("Открываем страницу 'Контакты'"):
+        contacts_page.open()
+        contacts_page.open_contacts()
 
-    with allure.step("Проверка контента страницы"):
-        about_page.check_heading("О НАС")
-        about_page.check_description_text()
+    with allure.step("Заполняем форму обратной связи"):
+        contacts_page.fill_message("Тестовое сообщение для проверки формы")
+
+    with allure.step("Проверяем, что сообщение заполнено"):
+        contacts_page.check_message_filled("Тестовое сообщение для проверки формы")
 
 
 @allure.epic("Contacts")

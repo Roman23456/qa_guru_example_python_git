@@ -8,7 +8,10 @@ from pages.base_page import BasePage
 
 class AuthorizationPage(BasePage):
 
-    _ACCOUNT_MENU = (By.XPATH, "//a[@class='main-link']//span[@class='fa fa-chevron-down']")
+    _ACCOUNT_MENU = (
+        By.XPATH,
+        "//a[@class='main-link']//span[@class='fa fa-chevron-down']",
+    )
     _EMAIL_INPUT = (By.ID, "input-email")
     _PASSWORD_INPUT = (By.ID, "input-password")
     _SUBMIT_BTN = (By.ID, "button-submit-login-form")
@@ -28,7 +31,9 @@ class AuthorizationPage(BasePage):
         email_input = self.find_element(self._EMAIL_INPUT)
         email_input.clear()
         email_input.send_keys(text)
-        assert email_input.get_attribute("value") == text, f"Email не заполнен. Ожидалось: {text}"
+        assert (
+            email_input.get_attribute("value") == text
+        ), f"Email не заполнен. Ожидалось: {text}"
 
     @allure.step("Ввод пароля")
     def fill_password(self, text=None):

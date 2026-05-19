@@ -6,7 +6,10 @@ from pages.base_page import BasePage
 
 class RegistrationPage(BasePage):
 
-    _ACCOUNT_MENU = (By.XPATH, "//a[@class='main-link']//span[@class='fa fa-chevron-down']")
+    _ACCOUNT_MENU = (
+        By.XPATH,
+        "//a[@class='main-link']//span[@class='fa fa-chevron-down']",
+    )
     _REGISTER_BTN = (By.ID, "link-register")
 
     @allure.step("Клик на дропдаун")
@@ -46,7 +49,9 @@ class RegistrationPage(BasePage):
         city_input = self.find_element((By.ID, "input-city"))
         city_input.clear()
         city_input.send_keys(text)
-        self.click_element((By.CSS_SELECTOR, "div.suggestions-list div.suggestion-item"))
+        self.click_element(
+            (By.CSS_SELECTOR, "div.suggestions-list div.suggestion-item")
+        )
 
     @allure.step("Вводим улицу")
     def fill_street(self, text):

@@ -13,22 +13,33 @@ class CategoryPage(BasePage):
     def open_category_menu(self):
         catalog_button = self.wait.until(
             EC.element_to_be_clickable(
-                (By.CSS_SELECTOR, ".menu-header, .category-menu-toggle, button.navbar-toggle")
+                (
+                    By.CSS_SELECTOR,
+                    ".menu-header, .category-menu-toggle, button.navbar-toggle",
+                )
             )
         )
-        self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", catalog_button)
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block:'center'});", catalog_button
+        )
         self.driver.execute_script("arguments[0].click();", catalog_button)
 
     @allure.step("Выбирает категорию из меню")
     def select_category(self, category_name):
         self.click_element(
-            (By.XPATH, f"//div[@class='d-table-cell for-text' and contains(text(), '{category_name}')]")
+            (
+                By.XPATH,
+                f"//div[@class='d-table-cell for-text' and contains(text(), '{category_name}')]",
+            )
         )
 
     @allure.step("Выбирает подкатегорию по названию")
     def select_subcategory(self, subcategory_name: str):
         self.click_element(
-            (By.XPATH, f"//div[@class='subcategory-title' and text()='{subcategory_name}']")
+            (
+                By.XPATH,
+                f"//div[@class='subcategory-title' and text()='{subcategory_name}']",
+            )
         )
 
     @allure.step("Добавляет товар в корзину со страницы категории")
@@ -42,7 +53,11 @@ class CategoryPage(BasePage):
 
     @allure.step("Проверяет уведомление о добавлении товара")
     def check_add_notification(self):
-        notification = self.wait.until(EC.presence_of_element_located(self._NOTIFICATION))
+        notification = self.wait.until(
+            EC.presence_of_element_located(self._NOTIFICATION)
+        )
         assert notification.is_displayed(), "Уведомление о добавлении не появилось"
-        assert "добавлен" in notification.text.lower(), f"Неверное уведомление: {notification.text}"
+        assert (
+            "добавлен" in notification.text.lower()
+        ), f"Неверное уведомление: {notification.text}"
         return notification.text

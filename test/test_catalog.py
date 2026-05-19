@@ -39,9 +39,12 @@ def test_add_to_cart(authorized_driver):
         search_page.fill_search("Кофе")
         search_page.click_search_button()
 
-    with allure.step("Добавляем товар в корзину и проверяем уведомление"):
+    with allure.step("Добавляем товар в корзину"):
         cart_page.add_to_cart(product_id="1011525")
-        cart_page.check_add_notification()
+
+    with allure.step("Проверяем, что товар реально добавился в корзину"):
+        cart_page.open_cart_page()
+        cart_page.check_cart_has_items()
 
 
 @allure.epic("Brands")
