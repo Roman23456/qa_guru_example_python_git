@@ -24,9 +24,7 @@ class BrandsPage(BasePage):
                 f"//a[contains(@class,'cl-inh') and normalize-space(text())='{brand_name}']",
             )
         )
-        self.wait.until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "div.add-to-cart-bar"))
-        )
+        self.find_element((By.CSS_SELECTOR, "div.add-to-cart-bar"))
 
     @allure.step("Добавление первого товара в корзину")
     def add_first_product_to_cart(self):

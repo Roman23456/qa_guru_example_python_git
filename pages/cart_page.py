@@ -12,6 +12,7 @@ class CartPage(BasePage):
     _CLEAR_CART_BTN = (By.CSS_SELECTOR, "a#button-clear-cart")
     _CONFIRM_YES_BTN = (By.CSS_SELECTOR, "a.button-yes.btn.btn-storum-primary")
     _CART_EMPTY_WARNING = (By.CSS_SELECTOR, "div.cart-page--warning-cart-empty")
+    _CART_ITEMS = (By.CSS_SELECTOR, "div.cart-page--product")
 
     @allure.step("Добавляет товар в корзину по ID")
     def add_to_cart(self, product_id: str):
@@ -24,9 +25,7 @@ class CartPage(BasePage):
 
     @allure.step("Проверяет уведомление о добавлении товара")
     def check_add_notification(self):
-        notification = self.wait.until(
-            EC.presence_of_element_located(self._NOTIFICATION)
-        )
+        notification = self.find_element(self._NOTIFICATION)
         assert notification.is_displayed(), "Уведомление о добавлении не появилось"
         assert (
             "добавлен" in notification.text.lower()
@@ -36,7 +35,7 @@ class CartPage(BasePage):
     @allure.step("Открывает страницу корзины")
     def open_cart_page(self):
         self.driver.get(f"{self.base_url}/index.php?route=checkout/cart")
-        self.wait.until(EC.presence_of_element_located(self._CART_PAGE_HEADING))
+        self.find_element(self._CART_PAGE_HEADING)
 
     @allure.step("Очищает корзину")
     def clear_cart(self):
@@ -46,10 +45,10 @@ class CartPage(BasePage):
     @allure.step("Проверяет, что в корзине есть товары")
     def check_cart_has_items(self):
         self.wait.until(EC.invisibility_of_element_located(self._CART_EMPTY_WARNING))
+        items = self.driver.find_elements(*self._CART_ITEMS)
+        assert len(items) > 0, "Корзина пуста — товары не найдены на странице корзины"
 
     @allure.step("Проверяет, что корзина пуста")
     def check_cart_is_empty(self):
-        empty_block = self.wait.until(
-            EC.visibility_of_element_located(self._CART_EMPTY_WARNING)
-        )
+        empty_block = self.find_visible(self._CART_EMPTY_WARNING)
         assert empty_block.is_displayed(), "Блок 'корзина пуста' не отображается"

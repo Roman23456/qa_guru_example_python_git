@@ -53,9 +53,7 @@ class CategoryPage(BasePage):
 
     @allure.step("Проверяет уведомление о добавлении товара")
     def check_add_notification(self):
-        notification = self.wait.until(
-            EC.presence_of_element_located(self._NOTIFICATION)
-        )
+        notification = self.find_element(self._NOTIFICATION)
         assert notification.is_displayed(), "Уведомление о добавлении не появилось"
         assert (
             "добавлен" in notification.text.lower()

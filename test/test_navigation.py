@@ -2,7 +2,7 @@ import allure
 
 from pages.city_page import CityPage
 from pages.contacts_page import ContactsPage
-from utils.config import config
+from utils.config import env_config
 
 
 @allure.epic("Contacts")
@@ -12,7 +12,7 @@ from utils.config import config
 @allure.tag("contacts", "form", "ui")
 @allure.label("owner", "qa_team")
 def test_contact_form(authorized_driver):
-    contacts_page = ContactsPage(authorized_driver, config.site_url)
+    contacts_page = ContactsPage(authorized_driver, env_config.site_url)
 
     with allure.step("Открываем страницу 'Контакты'"):
         contacts_page.open()
@@ -32,7 +32,7 @@ def test_contact_form(authorized_driver):
 @allure.tag("contacts", "requisites", "ui")
 @allure.label("owner", "qa_team")
 def test_contacts_requisites(setup_browser):
-    contacts_page = ContactsPage(setup_browser, config.site_url)
+    contacts_page = ContactsPage(setup_browser, env_config.site_url)
 
     with allure.step("Открываем главную страницу"):
         contacts_page.open()
@@ -58,7 +58,7 @@ def test_contacts_requisites(setup_browser):
 @allure.id("44022")
 @allure.label("owner", "qa_team")
 def test_set_delivery_city(setup_browser):
-    city_page = CityPage(setup_browser, config.site_url)
+    city_page = CityPage(setup_browser, env_config.site_url)
 
     with allure.step("Открываем сайт"):
         city_page.open()

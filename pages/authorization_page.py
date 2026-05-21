@@ -2,6 +2,7 @@ import os
 
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -15,6 +16,7 @@ class AuthorizationPage(BasePage):
     _EMAIL_INPUT = (By.ID, "input-email")
     _PASSWORD_INPUT = (By.ID, "input-password")
     _SUBMIT_BTN = (By.ID, "button-submit-login-form")
+    _ACCOUNT_LINK = (By.XPATH, "//a[contains(@href, 'route=account')]")
 
     @allure.step("Открыть сайт")
     def open(self):
@@ -31,9 +33,6 @@ class AuthorizationPage(BasePage):
         email_input = self.find_element(self._EMAIL_INPUT)
         email_input.clear()
         email_input.send_keys(text)
-        assert (
-            email_input.get_attribute("value") == text
-        ), f"Email не заполнен. Ожидалось: {text}"
 
     @allure.step("Ввод пароля")
     def fill_password(self, text=None):
@@ -42,8 +41,12 @@ class AuthorizationPage(BasePage):
         password_input = self.find_element(self._PASSWORD_INPUT)
         password_input.clear()
         password_input.send_keys(text)
-        assert len(password_input.get_attribute("value")) > 0, "Пароль не заполнен"
 
-    @allure.step("Клик на кнопку авторизации")
-    def password_click(self):
+    @allure.step("Клик на кнопку отправки формы авторизации")
+    def click_submit(self):
         self.click_element(self._SUBMIT_BTN)
+
+    @allure.step("Проверка успешной авторизации")
+    def verify_authorized(self):
+        account_link = self.find_visible(self._ACCOUNT_LINK)
+        assert account_link.is_displayed(), "Пользователь не авторизован — ссылка аккаунта не отображается"

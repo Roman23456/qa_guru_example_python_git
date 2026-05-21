@@ -1,5 +1,4 @@
 import logging
-from dataclasses import dataclass
 
 import pytest
 from selenium import webdriver
@@ -7,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 
 from pages.authorization_page import AuthorizationPage
 from utils.attach import add_console_logs, add_page_source, add_screenshot, add_video
-from utils.config import config
+from utils.config import BrowserConfig, config, env_config
 
 logging.basicConfig(
     level=logging.INFO,
@@ -15,13 +14,6 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class _BrowserConfig:
-    browser: str
-    headless: bool
-    selenoid_url: str
 
 
 def pytest_addoption(parser):
@@ -47,7 +39,7 @@ def pytest_addoption(parser):
         "--headless",
         action="store_true",
         default=False,
-        help="Запуск в headless " "режиме",
+        help="Запуск в headless режиме",
     )
 
 
@@ -55,32 +47,32 @@ def pytest_addoption(parser):
 def apply_cli_config(request):
     cli_site_url = request.config.getoption("--site-url")
     if cli_site_url:
-        config.site_url = cli_site_url
+        env_config.site_url = cli_site_url
     cli_browser_version = request.config.getoption("--browser-version")
     if cli_browser_version:
         config.browser_version = cli_browser_version
 
 
-def _read_browser_config(request) -> _BrowserConfig:
-    return _BrowserConfig(
+def _read_browser_config(request) -> BrowserConfig:
+    return BrowserConfig(
         browser=request.config.getoption("--browser"),
         headless=request.config.getoption("--headless"),
         selenoid_url=request.config.getoption("--selenoid-url") or "",
     )
 
 
-def _log_config(cfg: _BrowserConfig):
+def _log_config(cfg: BrowserConfig):
     logger.info("=" * 50)
     logger.info("CONFIGURATION:")
     logger.info(f"  Browser:      {cfg.browser} {config.browser_version}")
     logger.info(f"  Headless:     {cfg.headless}")
     logger.info(f"  Window Size:  {config.window_width}x{config.window_height}")
     logger.info(f"  Selenoid URL: {cfg.selenoid_url or '—'}")
-    logger.info(f"  Site URL:     {config.site_url}")
+    logger.info(f"  Site URL:     {env_config.site_url}")
     logger.info("=" * 50)
 
 
-def _build_options(cfg: _BrowserConfig) -> Options:
+def _build_options(cfg: BrowserConfig) -> Options:
     options = Options()
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
@@ -121,12 +113,13 @@ def setup_browser(request):
 
 @pytest.fixture(scope="function")
 def authorized_driver(setup_browser):
-    auth_page = AuthorizationPage(setup_browser, config.site_url)
+    auth_page = AuthorizationPage(setup_browser, env_config.site_url)
     logger.info("Выполняем авторизацию...")
     auth_page.open()
     auth_page.open_account_menu()
     auth_page.fill_email()
     auth_page.fill_password()
-    auth_page.password_click()
+    auth_page.click_submit()
+    auth_page.verify_authorized()
     logger.info("Авторизация выполнена")
     return setup_browser
