@@ -27,13 +27,16 @@ class BrandsPage(BasePage):
         self.find_element((By.CSS_SELECTOR, "div.add-to-cart-bar"))
 
     @allure.step("Добавление первого товара в корзину")
-    def add_first_product_to_cart(self):
+    def add_first_product_to_cart(self) -> str:
+        bar = self.find_element((By.CSS_SELECTOR, "div.add-to-cart-bar[data-opt='0']"))
+        product_id = bar.get_attribute("data-product-id")
         self.click_element(
             (
                 By.CSS_SELECTOR,
                 "div.add-to-cart-bar[data-opt='0'] " "a.button-add-to-cart",
             )
         )
+        return product_id
 
     @allure.step("Проверка уведомления о добавлении товара")
     def check_product_added_notification(self):

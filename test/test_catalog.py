@@ -42,9 +42,10 @@ def test_add_to_cart(authorized_driver):
     with allure.step("Добавляем товар в корзину"):
         cart_page.add_to_cart(product_id="1011525")
 
-    with allure.step("Проверяем, что товар реально добавился в корзину"):
+    with allure.step("Проверяем, что товар  добавился в корзину"):
         cart_page.open_cart_page()
         cart_page.check_cart_has_items()
+        cart_page.check_product_in_cart("1011525")
 
 
 @allure.epic("Brands")
@@ -63,12 +64,13 @@ def test_add_product_from_brand(authorized_driver):
         brands_page.select_brand("BioCos")
 
     with allure.step("Добавление товара в корзину"):
-        brands_page.add_first_product_to_cart()
+        product_id = brands_page.add_first_product_to_cart()
         brands_page.check_product_added_notification()
 
     with allure.step("Проверка наличия товара в корзине"):
         cart_page.open_cart_page()
         cart_page.check_cart_has_items()
+        cart_page.check_product_in_cart(product_id)
 
 
 @allure.epic("Cart")
@@ -119,3 +121,4 @@ def test_add_product_category(authorized_driver):
     with allure.step("Проверка наличия товара в корзине"):
         cart_page.open_cart_page()
         cart_page.check_cart_has_items()
+        cart_page.check_product_in_cart("279358")

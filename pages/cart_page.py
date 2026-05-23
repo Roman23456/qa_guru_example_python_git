@@ -12,7 +12,7 @@ class CartPage(BasePage):
     _CLEAR_CART_BTN = (By.CSS_SELECTOR, "a#button-clear-cart")
     _CONFIRM_YES_BTN = (By.CSS_SELECTOR, "a.button-yes.btn.btn-storum-primary")
     _CART_EMPTY_WARNING = (By.CSS_SELECTOR, "div.cart-page--warning-cart-empty")
-    _CART_ITEM = (By.CSS_SELECTOR, "div.cart-page--product-info")
+    _CART_ITEM = (By.CSS_SELECTOR, "div.cart-product-item")
 
     @allure.step("Добавляет товар в корзину по ID")
     def add_to_cart(self, product_id: str):
@@ -47,6 +47,15 @@ class CartPage(BasePage):
         self.wait.until(EC.invisibility_of_element_located(self._CART_EMPTY_WARNING))
         items = self.find_elements(self._CART_ITEM)
         assert len(items) > 0, "В корзине нет товаров"
+
+    @allure.step("Проверяет наличие конкретного товара в корзине по ID")
+    def check_product_in_cart(self, product_id: str):
+        locator = (By.CSS_SELECTOR, f"td.product-name a[href*='/catalog/{product_id}']")
+        element = self.wait.until(
+            EC.visibility_of_element_located(locator),
+            message=f"Товар с ID {product_id} не найден в корзине",
+        )
+        assert element.is_displayed(), f"Товар с ID {product_id} не отображается в корзине"
 
     @allure.step("Проверяет, что корзина пуста")
     def check_cart_is_empty(self):
