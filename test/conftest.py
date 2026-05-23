@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 
 from pages.authorization_page import AuthorizationPage
 from utils.attach import add_console_logs, add_page_source, add_screenshot, add_video
-from utils.config import BrowserConfig, config, env_config
+from utils.config import config, env_config
 
 logging.basicConfig(
     level=logging.INFO,
@@ -51,54 +51,48 @@ def apply_cli_config(request):
     cli_browser_version = request.config.getoption("--browser-version")
     if cli_browser_version:
         config.browser_version = cli_browser_version
+    config.browser = request.config.getoption("--browser")
+    config.headless = request.config.getoption("--headless")
+    config.selenoid_url = request.config.getoption("--selenoid-url") or config.selenoid_url
 
 
-def _read_browser_config(request) -> BrowserConfig:
-    return BrowserConfig(
-        browser=request.config.getoption("--browser"),
-        headless=request.config.getoption("--headless"),
-        selenoid_url=request.config.getoption("--selenoid-url") or "",
-    )
-
-
-def _log_config(cfg: BrowserConfig):
+def _log_config():
     logger.info("=" * 50)
     logger.info("CONFIGURATION:")
-    logger.info(f"  Browser:      {cfg.browser} {config.browser_version}")
-    logger.info(f"  Headless:     {cfg.headless}")
+    logger.info(f"  Browser:      {config.browser} {config.browser_version}")
+    logger.info(f"  Headless:     {config.headless}")
     logger.info(f"  Window Size:  {config.window_width}x{config.window_height}")
-    logger.info(f"  Selenoid URL: {cfg.selenoid_url or '—'}")
+    logger.info(f"  Selenoid URL: {config.selenoid_url or '—'}")
     logger.info(f"  Site URL:     {env_config.site_url}")
     logger.info("=" * 50)
 
 
-def _build_options(cfg: BrowserConfig) -> Options:
+def _build_options() -> Options:
     options = Options()
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument(f"--window-size={config.window_width},{config.window_height}")
     options.add_argument("--disable-blink-features=AutomationControlled")
-    if cfg.headless:
+    if config.headless:
         options.add_argument("--headless")
     return options
 
 
 @pytest.fixture(scope="function")
-def setup_browser(request):
-    cfg = _read_browser_config(request)
-    _log_config(cfg)
-    options = _build_options(cfg)
+def setup_browser():
+    _log_config()
+    options = _build_options()
 
-    if cfg.selenoid_url:
+    if config.selenoid_url:
         options.capabilities.update(
             {
-                "browserName": cfg.browser,
+                "browserName": config.browser,
                 "browserVersion": config.browser_version,
                 "selenoid:options": {"enableVNC": True, "enableVideo": True},
             }
         )
-        driver = webdriver.Remote(command_executor=cfg.selenoid_url, options=options)
+        driver = webdriver.Remote(command_executor=config.selenoid_url, options=options)
     else:
         driver = webdriver.Chrome(options=options)
 

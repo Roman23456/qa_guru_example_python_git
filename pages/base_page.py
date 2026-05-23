@@ -19,3 +19,6 @@ class BasePage:
 
     def find_visible(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
+
+    def find_elements(self, locator):
+        return self.driver.find_elements(*locator)

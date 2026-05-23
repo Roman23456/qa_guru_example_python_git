@@ -2,7 +2,6 @@ import os
 
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -49,4 +48,5 @@ class AuthorizationPage(BasePage):
     @allure.step("Проверка успешной авторизации")
     def verify_authorized(self):
         account_link = self.find_visible(self._ACCOUNT_LINK)
-        assert account_link.is_displayed(), "Пользователь не авторизован — ссылка аккаунта не отображается"
+        assert account_link.is_displayed(), ("Пользователь не авторизован — ссылка аккаунта не "
+                                             "отображается")

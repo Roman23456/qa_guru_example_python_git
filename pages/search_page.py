@@ -31,5 +31,5 @@ class SearchPage(BasePage):
         h1 = self.find_visible((By.TAG_NAME, "h1"))
         assert search_term in h1.text, f"Заголовок неверный: {h1.text}"
         assert "search" in self.driver.current_url, "URL не содержит search"
-        results = self.driver.find_elements(*self._SEARCH_RESULTS)
+        results = self.find_elements(self._SEARCH_RESULTS)
         assert len(results) > 0, f"Результаты поиска по '{search_term}' не найдены"
